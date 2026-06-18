@@ -3,11 +3,11 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 const ugcItems = [
-  { src: "/videos/1.MP4" },
-  { src: "/videos/2.MP4" },
-  { src: "/videos/3.MP4" },
-  { src: "/videos/4.MP4" },
-  { src: "/videos/5.MP4" }
+  { src: "/videos/1.MP4", poster: "/videos/posters/poster-01.jpg" },
+  { src: "/videos/2.MP4", poster: "/videos/posters/poster-02.jpg" },
+  { src: "/videos/3.MP4", poster: "/videos/posters/poster-03.jpg" },
+  { src: "/videos/4.MP4", poster: "/videos/posters/poster-04.jpg" },
+  { src: "/videos/5.MP4", poster: "/videos/posters/poster-05.jpg" }
 ];
 
 export function BenitourUgc() {
@@ -184,6 +184,7 @@ export function BenitourUgc() {
                   }}
                   className="bnt-ugc__video"
                   preload="metadata"
+                  poster={item.poster}
                   muted={muted[index]}
                   playsInline
                   onPlay={() => syncPlaying(index, true)}

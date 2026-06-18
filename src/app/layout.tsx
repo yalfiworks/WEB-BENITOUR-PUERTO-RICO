@@ -114,6 +114,9 @@ export default function RootLayout({
     >
       <head>
         <link rel="preconnect" href="https://widgets.bokun.io" />
+        <link rel="preload" as="image" href="/images/grupo-visita-guiada-benitour-barrio.jpg" fetchPriority="high" />
+        <link rel="preload" as="image" href="/images/benitour-logo.png" />
+        <link rel="preload" as="image" href="/videos/posters/poster-01.jpg" />
       </head>
       <body>
         {children}
