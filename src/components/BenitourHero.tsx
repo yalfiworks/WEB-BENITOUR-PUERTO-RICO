@@ -2,9 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import type { Language } from "@/lib/language";
 import { BokunButton } from "./BokunButton";
-
-type Language = "es" | "en";
 
 const copy = {
   es: {
@@ -14,7 +13,9 @@ const copy = {
     marker: "TiRaRáS FoToS De SoBrA.",
     primary: "RESERVA TU TOUR",
     secondary: "VER EL RECORRIDO",
-    route: "#reservar"
+    statsStops: "PARADAS",
+    statsPeople: "TuRiStAs",
+    statsGroup: "POR GRUPO"
   },
   en: {
     kicker: "Vega Baja, Puerto Rico",
@@ -23,12 +24,19 @@ const copy = {
     marker: "YoU WiLL TaKe ToNs Of PhOtOs.",
     primary: "BOOK YOUR TOUR",
     secondary: "SEE THE ROUTE",
-    route: "#book"
+    statsStops: "STOPS",
+    statsPeople: "GuEsTs",
+    statsGroup: "PER GROUP"
   }
 };
 
-export function BenitourHero() {
-  const [language, setLanguage] = useState<Language>("es");
+export function BenitourHero({
+  language,
+  onLanguageChange
+}: {
+  language: Language;
+  onLanguageChange: (language: Language) => void;
+}) {
   const [headerScrolled, setHeaderScrolled] = useState(false);
   const [statsVisible, setStatsVisible] = useState(false);
   const [stats, setStats] = useState({ hours: 3, stops: 5, people: 6 });
@@ -115,7 +123,7 @@ export function BenitourHero() {
               lang="es"
               aria-pressed={language === "es"}
               aria-label="Espanol"
-              onClick={() => setLanguage("es")}
+              onClick={() => onLanguageChange("es")}
             >
               <span>ES</span>
             </button>
@@ -126,7 +134,7 @@ export function BenitourHero() {
               lang="en"
               aria-pressed={language === "en"}
               aria-label="English"
-              onClick={() => setLanguage("en")}
+              onClick={() => onLanguageChange("en")}
             >
               <span>EN</span>
             </button>
@@ -215,13 +223,13 @@ export function BenitourHero() {
             <div className={`bnt-stat-divider${statsVisible ? " is-visible" : ""}`} />
             <div className={`bnt-stat${statsVisible ? " is-visible" : ""}`} style={{ transitionDelay: "80ms" }}>
               <span className="bnt-stat__num">{stats.stops}</span>
-              <span className="bnt-stat__label">PARADAS</span>
+              <span className="bnt-stat__label">{current.statsStops}</span>
             </div>
             <div className={`bnt-stat-divider${statsVisible ? " is-visible" : ""}`} />
             <div className={`bnt-stat${statsVisible ? " is-visible" : ""}`} style={{ transitionDelay: "160ms" }}>
               <span className="bnt-stat__num">{stats.people}</span>
               <span className="bnt-stat__label">
-                <span className="bnt-stat__mixed">TuRiStAs</span> POR GRUPO
+                <span className="bnt-stat__mixed">{current.statsPeople}</span> {current.statsGroup}
               </span>
             </div>
           </div>

@@ -1,78 +1,77 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import type { LanguageProps } from "@/lib/language";
 
-const kpis = [
-  {
-    order: "01",
-    badge: "HRS",
-    value: "3",
-    countTarget: 3,
-    label: "Duración",
-    subtext: "Experiencia completa",
-    background: "3",
-    ariaLabel: "Duración: 3 horas"
+const kpis = {
+  es: [
+    { order: "01", badge: "HRS", value: "3", countTarget: 3, label: "Duración", subtext: "Experiencia completa", background: "3", ariaLabel: "Duración: 3 horas" },
+    { order: "02", badge: "PARADAS", value: "5", countTarget: 5, label: "Localizaciones", subtext: "Todas en Vega Baja", background: "5", ariaLabel: "Paradas: 5" },
+    { order: "03", badge: "IDIOMAS", value: "ES\nEN", label: "Disponible en", subtext: "Español · English", background: "", ariaLabel: "Idiomas: Español e Inglés", kind: "langs" },
+    { order: "04", badge: "USD", value: "$139", label: "Desde · por persona", subtext: "Precio todo incluido", background: "$", ariaLabel: "Precio: desde $139 por persona", kind: "price" },
+    { order: "05", badge: "GRUPO", value: "6", countTarget: 6, label: "Personas por grupo", subtext: "Experiencia íntima", background: "6", ariaLabel: "Grupo de 6 personas" }
+  ],
+  en: [
+    { order: "01", badge: "HRS", value: "3", countTarget: 3, label: "Duration", subtext: "Complete experience", background: "3", ariaLabel: "Duration: 3 hours" },
+    { order: "02", badge: "STOPS", value: "5", countTarget: 5, label: "Locations", subtext: "All in Vega Baja", background: "5", ariaLabel: "Stops: 5" },
+    { order: "03", badge: "LANG", value: "ES\nEN", label: "Available in", subtext: "Spanish · English", background: "", ariaLabel: "Languages: Spanish and English", kind: "langs" },
+    { order: "04", badge: "USD", value: "$139", label: "From · per person", subtext: "All-included price", background: "$", ariaLabel: "Price: from $139 per person", kind: "price" },
+    { order: "05", badge: "GROUP", value: "6", countTarget: 6, label: "People per group", subtext: "Intimate experience", background: "6", ariaLabel: "Group of 6 people" }
+  ]
+};
+
+const copy = {
+  es: {
+    aria: "El Tour en Números - Benitour",
+    deco: "Benitour · Vega Baja · Puerto Rico · 2026",
+    titleTop: "El Tour",
+    titleAccent: "en",
+    titleBottom: "Números",
+    subtitle: "Todo lo que necesitas saber antes de reservar. Sin letra pequeña.",
+    grid: "Datos del tour",
+    langAria: "Español e Inglés",
+    footerLeft: "Vega Baja, Puerto Rico · La cuna del reggaetón",
+    footerRight: "Plazas disponibles esta semana"
   },
-  {
-    order: "02",
-    badge: "PARADAS",
-    value: "5",
-    countTarget: 5,
-    label: "Localizaciones",
-    subtext: "Todas en Vega Baja",
-    background: "5",
-    ariaLabel: "Paradas: 5"
-  },
-  {
-    order: "03",
-    badge: "IDIOMAS",
-    value: "ES\nEN",
-    label: "Disponible en",
-    subtext: "Español · English",
-    background: "",
-    ariaLabel: "Idiomas: Español e Inglés",
-    kind: "langs"
-  },
-  {
-    order: "04",
-    badge: "USD",
-    value: "$139",
-    label: "Desde · por persona",
-    subtext: "Precio todo incluido",
-    background: "$",
-    ariaLabel: "Precio: desde $139 por persona",
-    kind: "price"
-  },
-  {
-    order: "05",
-    badge: "GRUPO",
-    value: "6",
-    countTarget: 6,
-    label: "Personas por grupo",
-    subtext: "Experiencia íntima",
-    background: "6",
-    ariaLabel: "Grupo de 6 personas"
+  en: {
+    aria: "The Tour in Numbers - Benitour",
+    deco: "Benitour · Vega Baja · Puerto Rico · 2026",
+    titleTop: "The Tour",
+    titleAccent: "in",
+    titleBottom: "Numbers",
+    subtitle: "Everything you need to know before booking. No fine print.",
+    grid: "Tour facts",
+    langAria: "Spanish and English",
+    footerLeft: "Vega Baja, Puerto Rico · The cradle of reggaeton",
+    footerRight: "Spots available this week"
   }
-];
+};
 
-export function BenitourNumeros() {
+export function BenitourNumeros({ language }: LanguageProps) {
+  const t = copy[language];
+  const currentKpis = kpis[language];
   const sectionRef = useRef<HTMLElement | null>(null);
   const [entered, setEntered] = useState(false);
-  const [visibleItems, setVisibleItems] = useState<boolean[]>(() => kpis.map(() => false));
-  const [animatedValues, setAnimatedValues] = useState<string[]>(() => kpis.map((kpi) => kpi.value));
+  const [visibleItems, setVisibleItems] = useState<boolean[]>(() => currentKpis.map(() => false));
+  const [animatedValues, setAnimatedValues] = useState<string[]>(() => currentKpis.map((kpi) => kpi.value));
+
+  useEffect(() => {
+    setVisibleItems(currentKpis.map(() => entered));
+    setAnimatedValues(currentKpis.map((kpi) => kpi.value));
+  }, [currentKpis, entered]);
 
   useEffect(() => {
     const section = sectionRef.current;
     if (!section || !("IntersectionObserver" in window)) {
       setEntered(true);
-      setVisibleItems(kpis.map(() => true));
+      setVisibleItems(currentKpis.map(() => true));
       return;
     }
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduced) {
       setEntered(true);
-      setVisibleItems(kpis.map(() => true));
+      setVisibleItems(currentKpis.map(() => true));
       return;
     }
 
@@ -80,7 +79,7 @@ export function BenitourNumeros() {
       ([entry]) => {
         if (!entry.isIntersecting) return;
         setEntered(true);
-        kpis.forEach((_, index) => {
+        currentKpis.forEach((_, index) => {
           window.setTimeout(() => {
             setVisibleItems((current) => current.map((value, idx) => (idx === index ? true : value)));
             animateCounter(index);
@@ -93,10 +92,10 @@ export function BenitourNumeros() {
 
     observer.observe(section);
     return () => observer.disconnect();
-  }, []);
+  }, [currentKpis]);
 
   function animateCounter(index: number) {
-    const target = kpis[index].countTarget;
+    const target = currentKpis[index].countTarget;
     if (!target) return;
     const finalTarget = target;
 
@@ -122,24 +121,24 @@ export function BenitourNumeros() {
     <section
       className={`bnt-numeros-section${entered ? " bnt-numeros-section--entered" : ""}`}
       id="benitour-numeros"
-      aria-label="El Tour en Números - Benitour"
+      aria-label={t.aria}
       ref={sectionRef}
     >
       <div className="bnt-numeros__stripe-bottom" aria-hidden="true" />
-      <span className="bnt-numeros__deco" aria-hidden="true">Benitour · Vega Baja · Puerto Rico · 2026</span>
+      <span className="bnt-numeros__deco" aria-hidden="true">{t.deco}</span>
 
       <div className="bnt-numeros__inner">
         <header className="bnt-numeros__header">
           <h2 className="bnt-numeros__title">
-            El Tour <span data-text="en">en</span><br />
-            Números
+            {t.titleTop} <span data-text={t.titleAccent}>{t.titleAccent}</span><br />
+            {t.titleBottom}
           </h2>
-          <p className="bnt-numeros__subtitle">Todo lo que necesitas saber antes de reservar. Sin letra pequeña.</p>
+          <p className="bnt-numeros__subtitle">{t.subtitle}</p>
         </header>
 
         <div className="bnt-numeros__grid-wrap">
-          <div className="bnt-numeros__grid" role="list" aria-label="Datos del tour">
-            {kpis.map((kpi, index) => (
+          <div className="bnt-numeros__grid" role="list" aria-label={t.grid}>
+            {currentKpis.map((kpi, index) => (
               <article
                 className={`bnt-kpi-item${visibleItems[index] ? " is-visible" : ""}`}
                 role="listitem"
@@ -150,7 +149,7 @@ export function BenitourNumeros() {
                 <span className="bnt-kpi-item__badge">{kpi.badge}</span>
 
                 {kpi.kind === "langs" ? (
-                  <span className="bnt-kpi-item__langs" aria-label="Español e Inglés">
+                  <span className="bnt-kpi-item__langs" aria-label={t.langAria}>
                     ES<br />EN
                   </span>
                 ) : (
@@ -168,8 +167,8 @@ export function BenitourNumeros() {
         </div>
 
         <footer className="bnt-numeros__footer">
-          <p><span aria-hidden="true" />Vega Baja, Puerto Rico · La cuna del reggaetón</p>
-          <div><span aria-hidden="true" />Plazas disponibles esta semana</div>
+          <p><span aria-hidden="true" />{t.footerLeft}</p>
+          <div><span aria-hidden="true" />{t.footerRight}</div>
         </footer>
       </div>
     </section>

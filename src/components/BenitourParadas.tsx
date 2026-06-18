@@ -2,51 +2,130 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import type { LanguageProps } from "@/lib/language";
 import { BokunButton } from "./BokunButton";
 
-const paradas = [
-  {
-    image: "/images/paradas/parada-01.webp",
-    title: "Donde Todo Comenzó",
-    displayTitle: "DoNdE ToDo CoMeNzÓ",
-    hook: "Donde recogía carritos y manejaba caja antes de llenar estadios.",
-    description: "Donde recogía carritos y manejaba caja antes de llenar estadios. Una parada clave para entender el origen real de la historia."
+const paradas = {
+  es: [
+    {
+      image: "/images/paradas/parada-01.webp",
+      title: "Donde Todo Comenzó",
+      displayTitle: "DoNdE ToDo CoMeNzÓ",
+      hook: "Donde recogía carritos y manejaba caja antes de llenar estadios.",
+      description: "Donde recogía carritos y manejaba caja antes de llenar estadios. Una parada clave para entender el origen real de la historia."
+    },
+    {
+      image: "/images/paradas/parada-02.webp",
+      title: "La Suan",
+      displayTitle: "La SuAn",
+      hook: "La high school del barrio y la panadería que terminó metida en unas lyrics.",
+      description: "La high school del barrio y la panadería que terminó metida en unas lyrics."
+    },
+    {
+      image: "/images/paradas/parada-03.webp",
+      title: "El Primer Mural",
+      displayTitle: "El PrImEr MuRaL",
+      hook: "El mural donde todo fan se detiene a tirar la foto obligatoria.",
+      description: "El mural donde el tour se vuelve foto, barrio y memoria. Una de las paradas más visuales del recorrido."
+    },
+    {
+      image: "/images/paradas/parada-04.webp",
+      title: "¿Benito Monaguillo?",
+      displayTitle: "¿BeNiTo MoNaGuIllO?",
+      hook: "La iglesia del barrio y una historia que conecta con sus primeros años.",
+      description: "Una parada tranquila del recorrido, con la historia local que conecta el barrio con los primeros años de Benito."
+    },
+    {
+      image: "/images/paradas/parada-05.webp",
+      title: "La Casita",
+      displayTitle: "La CaSiTa",
+      hook: "La casita rosa, el origen íntimo del recorrido y de la historia.",
+      description: "La casita rosa y el paisaje de Vega Baja cierran el recorrido con una mirada más íntima al origen."
+    }
+  ],
+  en: [
+    {
+      image: "/images/paradas/parada-01.webp",
+      title: "Where It All Began",
+      displayTitle: "WhErE It BeGaN",
+      hook: "Where he collected carts and worked registers before filling stadiums.",
+      description: "Where he collected carts and worked registers before filling stadiums. A key stop to understand the real origin of the story."
+    },
+    {
+      image: "/images/paradas/parada-02.webp",
+      title: "La Suan",
+      displayTitle: "La SuAn",
+      hook: "The neighborhood high school and bakery that made their way into the lyrics.",
+      description: "The neighborhood high school and bakery that made their way into the lyrics."
+    },
+    {
+      image: "/images/paradas/parada-03.webp",
+      title: "The First Mural",
+      displayTitle: "FiRsT MuRaL",
+      hook: "The mural where every fan stops for the must-have photo.",
+      description: "The mural where the tour becomes photo, neighborhood and memory. One of the most visual stops on the route."
+    },
+    {
+      image: "/images/paradas/parada-04.webp",
+      title: "Benito as an Altar Boy?",
+      displayTitle: "BeNiTo AlTaR BoY?",
+      hook: "The neighborhood church and a story connected to his early years.",
+      description: "A quieter stop on the route, with local history that connects the neighborhood to Benito's early years."
+    },
+    {
+      image: "/images/paradas/parada-05.webp",
+      title: "The Little House",
+      displayTitle: "LiTtLe HoUsE",
+      hook: "The pink little house, the intimate origin of the route and the story.",
+      description: "The pink little house and the Vega Baja landscape close the route with a more intimate look at the origin."
+    }
+  ]
+};
+
+const copy = {
+  es: {
+    aria: "Las Paradas del Tour Benitour",
+    deco: "Vega Baja · Puerto Rico · 2026",
+    title: "El ReCoRriDo",
+    nav: "Navegación del carousel",
+    prev: "Parada anterior",
+    next: "Siguiente parada",
+    track: "Paradas del recorrido",
+    stop: "PARADA",
+    swipe: "Swipe para explorar",
+    dots: "Indicadores de posición",
+    go: "Ir a parada",
+    strip: "5 PARADAS · 3 HORAS · VEGA BAJA, PR",
+    cta: "Reservar tu Tour",
+    dialog: "Detalle de parada",
+    close: "Cerrar"
   },
-  {
-    image: "/images/paradas/parada-02.webp",
-    title: "La Suan",
-    displayTitle: "La SuAn",
-    hook: "La high school del barrio y la panadería que terminó metida en unas lyrics.",
-    description: "La high school del barrio y la panadería que terminó metida en unas lyrics."
-  },
-  {
-    image: "/images/paradas/parada-03.webp",
-    title: "El Primer Mural",
-    displayTitle: "El PrImEr MuRaL",
-    hook: "El mural donde todo fan se detiene a tirar la foto obligatoria.",
-    description: "El mural donde el tour se vuelve foto, barrio y memoria. Una de las paradas más visuales del recorrido."
-  },
-  {
-    image: "/images/paradas/parada-04.webp",
-    title: "¿Benito Monaguillo?",
-    displayTitle: "¿BeNiTo MoNaGuIllO?",
-    hook: "La iglesia del barrio y una historia que conecta con sus primeros años.",
-    description: "Una parada tranquila del recorrido, con la historia local que conecta el barrio con los primeros años de Benito."
-  },
-  {
-    image: "/images/paradas/parada-05.webp",
-    title: "La Casita",
-    displayTitle: "La CaSiTa",
-    hook: "La casita rosa, el origen íntimo del recorrido y de la historia.",
-    description: "La casita rosa y el paisaje de Vega Baja cierran el recorrido con una mirada más íntima al origen."
+  en: {
+    aria: "Benitour route stops",
+    deco: "Vega Baja · Puerto Rico · 2026",
+    title: "ThE RoUtE",
+    nav: "Carousel navigation",
+    prev: "Previous stop",
+    next: "Next stop",
+    track: "Tour route stops",
+    stop: "STOP",
+    swipe: "Swipe to explore",
+    dots: "Position indicators",
+    go: "Go to stop",
+    strip: "5 STOPS · 3 HOURS · VEGA BAJA, PR",
+    cta: "Book Your Tour",
+    dialog: "Stop details",
+    close: "Close"
   }
-];
+};
 
 function padded(index: number) {
   return String(index + 1).padStart(2, "0");
 }
 
-export function BenitourParadas() {
+export function BenitourParadas({ language }: LanguageProps) {
+  const t = copy[language];
+  const currentParadas = paradas[language];
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const [entered, setEntered] = useState(false);
@@ -143,7 +222,7 @@ export function BenitourParadas() {
   function goTo(index: number) {
     const track = trackRef.current;
     const cards = track?.querySelectorAll<HTMLElement>(".bnt-parada-card");
-    const card = cards?.[Math.max(0, Math.min(paradas.length - 1, index))];
+    const card = cards?.[Math.max(0, Math.min(currentParadas.length - 1, index))];
     if (!track || !card) return;
 
     const trackRect = track.getBoundingClientRect();
@@ -151,28 +230,28 @@ export function BenitourParadas() {
     track.scrollTo({ left: track.scrollLeft + cardRect.left - trackRect.left, behavior: "smooth" });
   }
 
-  const modal = modalIndex === null ? null : paradas[modalIndex];
+  const modal = modalIndex === null ? null : currentParadas[modalIndex];
 
   return (
     <section
       className={`bnt-paradas-section${entered ? " bnt-section-entered" : ""}`}
       id="benitour-paradas"
-      aria-label="Las Paradas del Tour Benitour"
+      aria-label={t.aria}
       ref={sectionRef}
     >
-      <span className="bnt-paradas__deco" aria-hidden="true">Vega Baja · Puerto Rico · 2026</span>
+      <span className="bnt-paradas__deco" aria-hidden="true">{t.deco}</span>
 
       <header className="bnt-paradas__header">
         <div className="bnt-paradas__header-row">
-          <h2 className="bnt-paradas__title" aria-label="El Recorrido">
-            <span><span>El&nbsp;ReCoRriDo</span></span>
+          <h2 className="bnt-paradas__title" aria-label={language === "es" ? "El Recorrido" : "The Route"}>
+            <span><span>{t.title}</span></span>
           </h2>
 
-          <nav className="bnt-paradas__arrows" aria-label="Navegación del carousel">
-            <button className="bnt-paradas__nav-btn" type="button" aria-label="Parada anterior" onClick={() => goTo(active - 1)}>
+          <nav className="bnt-paradas__arrows" aria-label={t.nav}>
+            <button className="bnt-paradas__nav-btn" type="button" aria-label={t.prev} onClick={() => goTo(active - 1)}>
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M12 4L6 10L12 16" /></svg>
             </button>
-            <button className="bnt-paradas__nav-btn" type="button" aria-label="Siguiente parada" onClick={() => goTo(active + 1)}>
+            <button className="bnt-paradas__nav-btn" type="button" aria-label={t.next} onClick={() => goTo(active + 1)}>
               <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M8 4L14 10L8 16" /></svg>
             </button>
           </nav>
@@ -180,14 +259,14 @@ export function BenitourParadas() {
       </header>
 
       <div className="bnt-paradas__carousel-wrapper">
-        <div className="bnt-paradas__track" ref={trackRef} role="list" aria-label="Paradas del recorrido">
-          {paradas.map((parada, index) => (
+        <div className="bnt-paradas__track" ref={trackRef} role="list" aria-label={t.track}>
+          {currentParadas.map((parada, index) => (
             <article
               className="bnt-parada-card"
               role="listitem"
               key={parada.title}
               tabIndex={0}
-              aria-label={`Parada ${index + 1}: ${parada.title}`}
+              aria-label={`${t.stop} ${index + 1}: ${parada.title}`}
               style={{ transitionDelay: `${index * 90}ms` }}
               onClick={() => setModalIndex(index)}
               onKeyDown={(event) => {
@@ -208,7 +287,7 @@ export function BenitourParadas() {
                 <div className="bnt-parada-card__overlay" aria-hidden="true" />
               </div>
 
-              <span className="bnt-parada-card__number" aria-hidden="true">PARADA {padded(index)}</span>
+              <span className="bnt-parada-card__number" aria-hidden="true">{t.stop} {padded(index)}</span>
               <span className="bnt-parada-card__open" aria-hidden="true">
                 <svg viewBox="0 0 14 14"><path d="M3 11L11 3M11 3H6M11 3V8" /></svg>
               </span>
@@ -225,15 +304,15 @@ export function BenitourParadas() {
 
       <div className="bnt-paradas__scroll-hint" aria-hidden="true">
         <svg viewBox="0 0 28 14"><path d="M2 7H24M24 7L18 2M24 7L18 12" /></svg>
-        Swipe para explorar
+        {t.swipe}
       </div>
 
-      <nav className="bnt-paradas__dots" aria-label="Indicadores de posición">
-        {paradas.map((parada, index) => (
+      <nav className="bnt-paradas__dots" aria-label={t.dots}>
+        {currentParadas.map((parada, index) => (
           <button
             className={`bnt-paradas__dot${index === active ? " is-active" : ""}`}
             type="button"
-            aria-label={`Ir a parada ${index + 1}`}
+            aria-label={`${t.go} ${index + 1}`}
             aria-current={index === active}
             key={parada.title}
             onClick={() => goTo(index)}
@@ -242,9 +321,9 @@ export function BenitourParadas() {
       </nav>
 
       <div className="bnt-paradas__cta-strip">
-        <p>5 PARADAS · 3 HORAS · VEGA BAJA, PR</p>
-        <BokunButton id="bokun_paradas_cta" className="bnt-paradas__cta" ariaLabel="Reservar tu Tour">
-          <span>Reservar tu Tour</span>
+        <p>{t.strip}</p>
+        <BokunButton id="bokun_paradas_cta" className="bnt-paradas__cta" ariaLabel={t.cta}>
+          <span>{t.cta}</span>
           <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 10H16M16 10L11 5M16 10L11 15" /></svg>
         </BokunButton>
       </div>
@@ -253,14 +332,14 @@ export function BenitourParadas() {
         className={`bnt-paradas-modal${modal ? " is-open" : ""}`}
         role="dialog"
         aria-modal="true"
-        aria-label={modal?.title ?? "Detalle de parada"}
+        aria-label={modal?.title ?? t.dialog}
         onClick={(event) => {
           if (event.target === event.currentTarget) setModalIndex(null);
         }}
       >
         {modal && (
           <div className="bnt-paradas-modal__panel">
-            <button className="bnt-paradas-modal__close" type="button" aria-label="Cerrar" onClick={() => setModalIndex(null)}>
+            <button className="bnt-paradas-modal__close" type="button" aria-label={t.close} onClick={() => setModalIndex(null)}>
               <svg viewBox="0 0 14 14" aria-hidden="true"><path d="M3 3L11 11M11 3L3 11" /></svg>
             </button>
             <div className="bnt-paradas-modal__image-wrap">
@@ -275,7 +354,7 @@ export function BenitourParadas() {
               <span className="bnt-paradas-modal__big-number" aria-hidden="true">{padded(modalIndex ?? 0)}</span>
             </div>
             <div className="bnt-paradas-modal__body">
-              <p className="bnt-paradas-modal__kicker">PARADA {padded(modalIndex ?? 0)}</p>
+              <p className="bnt-paradas-modal__kicker">{t.stop} {padded(modalIndex ?? 0)}</p>
               <h3>{modal.title}</h3>
               <div className="bnt-paradas-modal__divider" aria-hidden="true" />
               <p>{modal.description}</p>

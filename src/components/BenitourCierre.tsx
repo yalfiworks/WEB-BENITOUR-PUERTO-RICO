@@ -2,21 +2,61 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import type { LanguageProps } from "@/lib/language";
 import { BokunButton } from "./BokunButton";
 
-const navLinks = [
-  { label: "Las 5 paradas", href: "#benitour-paradas" },
-  { label: "Qué incluye", href: "#benitour-incluye" },
-  { label: "Preguntas frecuentes", href: "#benitour-faq" },
-  { label: "Reserva tu Tour", href: "#reservar", booking: true }
-];
-
-const legalLinks = [
-  { label: "Política de Privacidad", key: "privacy" },
-  { label: "Aviso Legal", key: "legal" },
-  { label: "Términos del Servicio", key: "terms" },
-  { label: "Contacto", key: "contact" }
-];
+const copy = {
+  es: {
+    navLinks: [
+      { label: "Las 5 paradas", href: "#benitour-paradas" },
+      { label: "Qué incluye", href: "#benitour-incluye" },
+      { label: "Preguntas frecuentes", href: "#benitour-faq" },
+      { label: "Reserva tu Tour", href: "#reservar", booking: true }
+    ],
+    legalLinks: [
+      { label: "Política de Privacidad", key: "privacy" },
+      { label: "Aviso Legal", key: "legal" },
+      { label: "Términos del Servicio", key: "terms" },
+      { label: "Contacto", key: "contact" }
+    ],
+    aria: "Cierre y reserva de Benitour",
+    slogan: <>DoNdE ToDo<br />CoMeNzÓ</>,
+    subtitle: "El barrio de Benito. La cuna del reggaetón. Una sola reserva.",
+    cta: "Reserva tu Tour",
+    price: <>Desde <strong>139</strong>&nbsp;·&nbsp;por persona · grupos 6</>,
+    tour: "El tour",
+    follow: "Síguenos",
+    contact: "Contacto",
+    footerNav: "Menú pie de página",
+    legalNav: "Enlaces legales",
+    disclaimer: "Benitour es un tour cultural independiente operado por La Brega LLC. No está afiliado oficialmente a Bad Bunny, Rimas Entertainment ni a ninguna entidad asociada al artista."
+  },
+  en: {
+    navLinks: [
+      { label: "The 5 stops", href: "#benitour-paradas" },
+      { label: "What's included", href: "#benitour-incluye" },
+      { label: "FAQ", href: "#benitour-faq" },
+      { label: "Book Your Tour", href: "#reservar", booking: true }
+    ],
+    legalLinks: [
+      { label: "Privacy Policy", key: "privacy" },
+      { label: "Legal Notice", key: "legal" },
+      { label: "Terms of Service", key: "terms" },
+      { label: "Contact", key: "contact" }
+    ],
+    aria: "Benitour closing and booking",
+    slogan: <>WhErE It All<br />BeGaN</>,
+    subtitle: "Benito's neighborhood. The cradle of reggaeton. One simple booking.",
+    cta: "Book Your Tour",
+    price: <>From <strong>139</strong>&nbsp;·&nbsp;per person · groups of 6</>,
+    tour: "The tour",
+    follow: "Follow us",
+    contact: "Contact",
+    footerNav: "Footer menu",
+    legalNav: "Legal links",
+    disclaimer: "Benitour is an independent cultural tour operated by La Brega LLC. It is not officially affiliated with Bad Bunny, Rimas Entertainment or any entity associated with the artist."
+  }
+};
 
 function ArrowIcon() {
   return (
@@ -52,7 +92,8 @@ function TikTokIcon() {
   );
 }
 
-export function BenitourCierre() {
+export function BenitourCierre({ language }: LanguageProps) {
+  const t = copy[language];
   const sectionRef = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
 
@@ -90,7 +131,7 @@ export function BenitourCierre() {
     <section
       className={`bnt-cierre-root${visible ? " is-visible" : ""}`}
       id="benitour-cierre"
-      aria-label="Cierre y reserva de Benitour"
+      aria-label={t.aria}
       ref={sectionRef}
     >
       <div className="bnt-cierre-section">
@@ -105,29 +146,27 @@ export function BenitourCierre() {
 
         <div className="bnt-cierre-hero">
           <h2 className="bnt-cierre-lema bnt-cierre-reveal" style={{ transitionDelay: "0.06s" }}>
-            DoNdE ToDo<br />CoMeNzÓ
+            {t.slogan}
           </h2>
           <p className="bnt-cierre-sublema bnt-cierre-reveal" style={{ transitionDelay: "0.12s" }}>
-            El barrio de Benito. La cuna del reggaetón. Una sola reserva.
+            {t.subtitle}
           </p>
           <div className="bnt-cierre-cta-wrap bnt-cierre-reveal" style={{ transitionDelay: "0.18s" }}>
-            <BokunButton id="bokun_cierre_cta" className="bnt-cierre-btn" ariaLabel="Reserva tu Tour">
-              Reserva tu Tour
+            <BokunButton id="bokun_cierre_cta" className="bnt-cierre-btn" ariaLabel={t.cta}>
+              {t.cta}
               <ArrowIcon />
             </BokunButton>
-            <p className="bnt-cierre-precio">
-              Desde <strong>139</strong>&nbsp;·&nbsp;per person · groups 6
-            </p>
+            <p className="bnt-cierre-precio">{t.price}</p>
           </div>
         </div>
 
         <div className="bnt-cierre-divider" aria-hidden="true" />
 
-        <nav className="bnt-cierre-grid" aria-label="Menú pie de página">
+        <nav className="bnt-cierre-grid" aria-label={t.footerNav}>
           <div className="bnt-slide-left" data-delay="0">
-            <span className="bnt-cierre-col-title bnt-stagger-left">El tour</span>
+            <span className="bnt-cierre-col-title bnt-stagger-left">{t.tour}</span>
             <div className="bnt-cierre-nav">
-              {navLinks.map((link, index) => (
+              {t.navLinks.map((link, index) => (
                 link.booking ? (
                   <BokunButton id="bokun_cierre_nav" className="bnt-cierre-nav-link bnt-stagger-left" ariaLabel={link.label} key={link.label}>
                     {link.label}
@@ -144,7 +183,7 @@ export function BenitourCierre() {
           </div>
 
           <div className="bnt-slide-center" style={{ transitionDelay: "0.08s" }}>
-            <span className="bnt-cierre-col-title bnt-stagger-center">Síguenos</span>
+            <span className="bnt-cierre-col-title bnt-stagger-center">{t.follow}</span>
             <div className="bnt-cierre-social-col">
               <a href="https://instagram.com/BENITOURPUERTORICO" className="bnt-cierre-social-pill bnt-stagger-center" target="_blank" rel="noopener noreferrer" aria-label="Instagram de Benitour">
                 <InstagramIcon />
@@ -158,7 +197,7 @@ export function BenitourCierre() {
           </div>
 
           <div className="bnt-slide-right" style={{ transitionDelay: "0.04s" }}>
-            <span className="bnt-cierre-col-title bnt-stagger-right">Contacto</span>
+            <span className="bnt-cierre-col-title bnt-stagger-right">{t.contact}</span>
             <a href="mailto:info@benitourpuertorico.com" className="bnt-cierre-contact-item bnt-stagger-right">
               <svg viewBox="0 0 16 16" fill="none" aria-hidden="true">
                 <rect x="1" y="3" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.4" />
@@ -185,8 +224,8 @@ export function BenitourCierre() {
         <div className="bnt-cierre-divider-2" aria-hidden="true" />
 
         <div className="bnt-cierre-bottom">
-          <nav className="bnt-cierre-legal-links bnt-slide-bottom-left" aria-label="Enlaces legales">
-            {legalLinks.map((link, index) => (
+          <nav className="bnt-cierre-legal-links bnt-slide-bottom-left" aria-label={t.legalNav}>
+            {t.legalLinks.map((link, index) => (
               <span className="bnt-cierre-legal-wrap" key={link.label}>
                 {index > 0 && <span aria-hidden="true">·</span>}
                 <button className="bnt-cierre-legal-link" type="button" onClick={() => openLegal(link.key)}>
@@ -197,7 +236,7 @@ export function BenitourCierre() {
           </nav>
 
           <p className="bnt-cierre-legal bnt-slide-bottom-left">
-            Benitour es un tour cultural independiente operado por La Brega LLC. No está afiliado oficialmente a Bad Bunny, Rimas Entertainment ni a ninguna entidad asociada al artista.
+            {t.disclaimer}
           </p>
           <span className="bnt-cierre-copy bnt-slide-bottom-right">
             © {new Date().getFullYear()} La Brega LLC

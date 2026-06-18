@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import type { LanguageProps } from "@/lib/language";
 
 const ugcItems = [
   { src: "/videos/1.MP4", poster: "/videos/posters/poster-01.jpg" },
@@ -10,7 +11,25 @@ const ugcItems = [
   { src: "/videos/5.MP4", poster: "/videos/posters/poster-05.jpg" }
 ];
 
-export function BenitourUgc() {
+const copy = {
+  es: {
+    soundOn: "Activa el sonido",
+    unmute: "Activar sonido",
+    mute: "Silenciar",
+    nav: "Navegación vídeos",
+    video: "Vídeo"
+  },
+  en: {
+    soundOn: "Turn sound on",
+    unmute: "Turn sound on",
+    mute: "Mute",
+    nav: "Video navigation",
+    video: "Video"
+  }
+};
+
+export function BenitourUgc({ language }: LanguageProps) {
+  const t = copy[language];
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
@@ -211,14 +230,14 @@ export function BenitourUgc() {
                       <line x1="8" y1="23" x2="16" y2="23" />
                     </svg>
                   </div>
-                  <span className="bnt-ugc__toast-label">Activa el sonido</span>
+                  <span className="bnt-ugc__toast-label">{t.soundOn}</span>
                   <span className="bnt-ugc__toast-dot" />
                 </div>
 
                 <button
                   className={`bnt-ugc__sound-btn${muted[index] ? "" : " unmuted"}`}
                   type="button"
-                  aria-label={muted[index] ? "Activar sonido" : "Silenciar"}
+                  aria-label={muted[index] ? t.unmute : t.mute}
                   onClick={(event) => {
                     event.stopPropagation();
                     toggleSound(index);
@@ -248,12 +267,12 @@ export function BenitourUgc() {
           ))}
         </div>
 
-        <nav className="bnt-ugc__dots" aria-label="Navegación vídeos">
+        <nav className="bnt-ugc__dots" aria-label={t.nav}>
           {ugcItems.map((item, index) => (
             <button
               className={`bnt-ugc__dot${index === active ? " is-active" : ""}`}
               type="button"
-              aria-label={`Vídeo ${index + 1}`}
+              aria-label={`${t.video} ${index + 1}`}
               onClick={() => goTo(index)}
               key={item.src}
             />
