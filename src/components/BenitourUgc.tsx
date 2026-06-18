@@ -13,6 +13,9 @@ const ugcItems = [
 
 const copy = {
   es: {
+    titleTop: "Qué Opinan",
+    titleBottom: "nuestros",
+    titleAccent: "TuRiStAs",
     soundOn: "Activa el sonido",
     unmute: "Activar sonido",
     mute: "Silenciar",
@@ -20,6 +23,9 @@ const copy = {
     video: "Vídeo"
   },
   en: {
+    titleTop: "What Our",
+    titleBottom: "GuEsTs",
+    titleAccent: "Say",
     soundOn: "Turn sound on",
     unmute: "Turn sound on",
     mute: "Mute",
@@ -184,6 +190,15 @@ export function BenitourUgc({ language }: LanguageProps) {
   return (
     <section className="bnt-ugc" id="benitour-ugc" ref={sectionRef}>
       <div className="bnt-ugc__wrapper">
+        <header className="bnt-ugc__header">
+          <div className="bnt-ugc__header-left">
+            <h2 className="bnt-ugc__title">
+              {t.titleTop}<br />
+              {t.titleBottom} <em>{t.titleAccent}</em>
+            </h2>
+          </div>
+        </header>
+
         <div className="bnt-ugc__arrows bnt-ugc__arrows--floating" aria-hidden="true">
           <button className="bnt-ugc__arr" type="button" onClick={() => goTo(active - 1)}>
             <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6" /></svg>
