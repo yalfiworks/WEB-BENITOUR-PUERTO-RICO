@@ -143,7 +143,7 @@ export function BenitourHero({
           <BokunButton id="bokun_header_cta" className="bnt-cta-header" ariaLabel={current.primary}>
             {current.primary}
             <span className="bnt-cta-header__arr" aria-hidden="true">
-              -&gt;
+              →
             </span>
           </BokunButton>
         </nav>
@@ -200,13 +200,13 @@ export function BenitourHero({
             <BokunButton id="bokun_hero_primary" className="bnt-btn-primary" ariaLabel={current.primary}>
               {current.primary}
               <span className="bnt-btn-primary__icon" aria-hidden="true">
-                -&gt;
+                →
               </span>
             </BokunButton>
             <a href="#benitour-paradas" className="bnt-btn-secondary" data-smooth-scroll onClick={handleSmoothScroll}>
               {current.secondary}
               <span className="bnt-btn-secondary__icon" aria-hidden="true">
-                v
+                ↓
               </span>
             </a>
           </div>

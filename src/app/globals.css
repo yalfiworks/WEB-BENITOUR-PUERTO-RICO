@@ -826,6 +826,44 @@ body {
   scroll-snap-type: none;
 }
 
+.bnt-ugc__swipe-hint {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 1vw, 15px);
+  padding: 0 var(--ugc-side) clamp(22px, 2.4vw, 34px);
+  margin-top: clamp(-10px, -0.8vw, -4px);
+  font-family: var(--font-jetbrains-mono), monospace;
+  font-size: clamp(10px, 0.75vw, 12px);
+  font-weight: 700;
+  line-height: 1;
+  color: rgb(242 237 231 / 64%);
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+}
+
+.bnt-ugc__swipe-line {
+  width: clamp(28px, 3vw, 46px);
+  height: 1px;
+  background: rgb(242 237 231 / 42%);
+  flex-shrink: 0;
+}
+
+.bnt-ugc__swipe-text {
+  white-space: nowrap;
+}
+
+.bnt-ugc__swipe-hint svg {
+  width: clamp(26px, 2.2vw, 34px);
+  height: clamp(13px, 1.1vw, 17px);
+  fill: none;
+  stroke: var(--ugc-yellow);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.8;
+  animation: bnt-ugc-swipe-pulse 1.6s ease-in-out infinite;
+  flex-shrink: 0;
+}
+
 .bnt-ugc__card {
   display: flex;
   flex: 0 0 clamp(240px, 18vw, 320px);
@@ -1223,6 +1261,19 @@ body {
   50% {
     opacity: 0.3;
     transform: scale(0.7);
+  }
+}
+
+@keyframes bnt-ugc-swipe-pulse {
+  0%,
+  100% {
+    opacity: 0.62;
+    transform: translateX(0);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(8px);
   }
 }
 

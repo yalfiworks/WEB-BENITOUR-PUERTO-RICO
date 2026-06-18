@@ -20,7 +20,8 @@ const copy = {
     unmute: "Activar sonido",
     mute: "Silenciar",
     nav: "Navegación vídeos",
-    video: "Vídeo"
+    video: "Vídeo",
+    swipe: "Swipe para ver más"
   },
   en: {
     titleTop: "What Our",
@@ -30,7 +31,8 @@ const copy = {
     unmute: "Turn sound on",
     mute: "Mute",
     nav: "Video navigation",
-    video: "Video"
+    video: "Video",
+    swipe: "Swipe for more"
   }
 };
 
@@ -280,6 +282,14 @@ export function BenitourUgc({ language }: LanguageProps) {
 
             </article>
           ))}
+        </div>
+
+        <div className="bnt-ugc__swipe-hint" aria-hidden="true">
+          <span className="bnt-ugc__swipe-line" />
+          <span className="bnt-ugc__swipe-text">{t.swipe}</span>
+          <svg viewBox="0 0 28 14">
+            <path d="M2 7H24M24 7L18 2M24 7L18 12" />
+          </svg>
         </div>
 
         <nav className="bnt-ugc__dots" aria-label={t.nav}>
