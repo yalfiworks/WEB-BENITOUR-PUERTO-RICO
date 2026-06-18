@@ -71,6 +71,7 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
+      { url: "/google-favicon-48.png", type: "image/png", sizes: "48x48" },
       { url: "/favicon-48.png", type: "image/png", sizes: "48x48" },
       { url: "/favicon-192.png", type: "image/png", sizes: "192x192" },
       { url: "/favicon.ico" },
@@ -114,6 +115,10 @@ export default function RootLayout({
       className={`${barlowCondensed.variable} ${manrope.variable} ${jetBrainsMono.variable} ${permanentMarker.variable}`}
     >
       <head>
+        <link rel="icon" href="https://benitourpuertorico.com/google-favicon-48.png" type="image/png" sizes="48x48" />
+        <link rel="icon" href="https://benitourpuertorico.com/favicon-48.png" type="image/png" sizes="48x48" />
+        <link rel="shortcut icon" href="https://benitourpuertorico.com/favicon.ico" />
+        <link rel="apple-touch-icon" href="https://benitourpuertorico.com/apple-touch-icon.png" />
         <link rel="preconnect" href="https://widgets.bokun.io" />
         <link rel="preload" as="image" href="/images/grupo-visita-guiada-benitour-barrio.jpg" fetchPriority="high" />
         <link rel="preload" as="image" href="/images/benitour-logo.png" />

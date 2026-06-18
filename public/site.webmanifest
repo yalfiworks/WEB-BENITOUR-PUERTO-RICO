@@ -3,6 +3,11 @@
   "short_name": "Benitour",
   "icons": [
     {
+      "src": "/google-favicon-48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
       "src": "/favicon-48.png",
       "sizes": "48x48",
       "type": "image/png"
