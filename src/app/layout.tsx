@@ -123,6 +123,16 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/images/grupo-visita-guiada-benitour-barrio.jpg" fetchPriority="high" />
         <link rel="preload" as="image" href="/images/benitour-logo.png" />
         <link rel="preload" as="image" href="/videos/posters/poster-01.jpg" />
+        <link rel="preload" as="image" href="/images/paradas/parada-01.webp" fetchPriority="high" />
+        <link rel="preload" as="image" href="/images/paradas/parada-02.webp" />
+        <link rel="preload" as="image" href="/images/paradas/parada-03.webp" />
+        <link rel="preload" as="image" href="/images/paradas/parada-04.webp" />
+        <link rel="preload" as="image" href="/images/paradas/parada-05.webp" />
+        <link rel="preload" as="image" href="/images/guias/guias-hero.webp" fetchPriority="high" />
+        <link rel="preload" as="image" href="/images/guias/guia-edwin.webp" fetchPriority="high" />
+        <link rel="preload" as="image" href="/images/guias/guia-karla.webp" fetchPriority="high" />
+        <link rel="preload" as="image" href="/images/cierre/cierre-desktop.jpg" />
+        <link rel="preload" as="image" href="/images/cierre/cierre-mobile.jpg" />
       </head>
       <body>
         {children}

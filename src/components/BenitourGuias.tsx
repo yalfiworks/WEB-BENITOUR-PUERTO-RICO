@@ -85,7 +85,7 @@ export function BenitourGuias({ language }: LanguageProps) {
         setEntered(true);
         observer.disconnect();
       },
-      { threshold: 0.1 }
+      { rootMargin: "720px 0px", threshold: 0.01 }
     );
 
     observer.observe(section);
@@ -118,6 +118,7 @@ export function BenitourGuias({ language }: LanguageProps) {
             alt={t.imageAlt}
             fill
             priority
+            quality={90}
             sizes="(min-width: 1040px) 1040px, 100vw"
           />
           <div className="bnt-guias__hero-overlay" aria-hidden="true" />
@@ -137,7 +138,14 @@ export function BenitourGuias({ language }: LanguageProps) {
           {t.guides.map((guide, index) => (
             <article className="bnt-guia-card" style={{ transitionDelay: `${index * 180}ms` }} key={guide.name}>
               <div className="bnt-guia-card__photo">
-                <Image src={guide.image} alt={guide.name} fill sizes="(min-width: 600px) 340px, 90vw" />
+                <Image
+                  src={guide.image}
+                  alt={guide.name}
+                  fill
+                  priority
+                  quality={90}
+                  sizes="(min-width: 1100px) 420px, (min-width: 600px) 340px, 90vw"
+                />
                 <span aria-hidden="true">{guide.number}</span>
               </div>
               <div className="bnt-guia-card__body">

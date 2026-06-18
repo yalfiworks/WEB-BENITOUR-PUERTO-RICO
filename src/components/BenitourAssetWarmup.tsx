@@ -3,14 +3,14 @@
 import { useEffect } from "react";
 
 const imageAssets = [
+  "/images/guias/guias-hero.webp",
+  "/images/guias/guia-edwin.webp",
+  "/images/guias/guia-karla.webp",
   "/images/paradas/parada-01.webp",
   "/images/paradas/parada-02.webp",
   "/images/paradas/parada-03.webp",
   "/images/paradas/parada-04.webp",
   "/images/paradas/parada-05.webp",
-  "/images/guias/guias-hero.webp",
-  "/images/guias/guia-edwin.webp",
-  "/images/guias/guia-karla.webp",
   "/images/cierre/cierre-desktop.jpg",
   "/images/cierre/cierre-mobile.jpg",
   "/videos/posters/poster-02.jpg",
@@ -34,9 +34,20 @@ export function BenitourAssetWarmup() {
 
     const warmImages = () => {
       imageAssets.forEach((href) => {
+        if (!document.head.querySelector(`link[href="${href}"]`)) {
+          const link = document.createElement("link");
+          link.rel = "prefetch";
+          link.as = "image";
+          link.href = href;
+          link.setAttribute("fetchpriority", href.includes("/guias/") ? "high" : "low");
+          document.head.appendChild(link);
+        }
+
         const image = new Image();
         image.decoding = "async";
+        image.fetchPriority = href.includes("/guias/") ? "high" : "low";
         image.src = href;
+        image.decode?.().catch(() => undefined);
       });
     };
 
@@ -53,13 +64,17 @@ export function BenitourAssetWarmup() {
     const runIdle: (callback: IdleRequestCallback) => number =
       window.requestIdleCallback ?? ((callback) => window.setTimeout(() => callback({ didTimeout: false, timeRemaining: () => 0 }), 900));
     const cancelIdle: (id: number) => void = window.cancelIdleCallback ?? window.clearTimeout;
-    const firstIdle = runIdle(() => {
+    const firstIdle = window.setTimeout(() => {
       warmImages();
-      window.setTimeout(warmVideos, 1200);
+    }, 350);
+
+    const secondIdle = runIdle(() => {
+      warmVideos();
     });
 
     return () => {
-      cancelIdle(firstIdle);
+      window.clearTimeout(firstIdle);
+      cancelIdle(secondIdle);
     };
   }, []);
 
