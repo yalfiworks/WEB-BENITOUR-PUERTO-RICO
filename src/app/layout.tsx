@@ -31,6 +31,9 @@ const permanentMarker = Permanent_Marker({
   display: "swap"
 });
 
+const metaDescription =
+  "Recorre el barrio donde creció Bad Bunny. 5 paradas auténticas, 3 horas, guías locales de Vega Baja. Grupos de 6 personas. Desde $139. Reserva tu plaza hoy.";
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://benitourpuertorico.com"),
   applicationName: "Benitour Puerto Rico",
@@ -38,8 +41,7 @@ export const metadata: Metadata = {
     default: "Benitour Puerto Rico | Bad Bunny Tour en Vega Baja, PR",
     template: "%s | Benitour Puerto Rico"
   },
-  description:
-    "Tour cultural por el barrio donde creció Bad Bunny en Vega Baja, Puerto Rico. 5 paradas auténticas, 3 horas, guías locales y grupos de 6 personas desde $139.",
+  description: metaDescription,
   keywords: [
     "Benitour",
     "Benitour Puerto Rico",
@@ -78,8 +80,7 @@ export const metadata: Metadata = {
   manifest: "/site.webmanifest",
   openGraph: {
     title: "Benitour Puerto Rico | Bad Bunny Tour en Vega Baja, PR",
-    description:
-      "Recorre el barrio donde creció Bad Bunny. 5 paradas auténticas, 3 horas, guías locales de Vega Baja.",
+    description: metaDescription,
     url: "/",
     siteName: "Benitour Puerto Rico",
     locale: "es_PR",
@@ -96,8 +97,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Benitour Puerto Rico | Bad Bunny Tour en Vega Baja, PR",
-    description:
-      "Tour cultural por el barrio donde creció Bad Bunny en Vega Baja, Puerto Rico. 5 paradas auténticas, 3 horas y guías locales.",
+    description: metaDescription,
     images: ["/images/grupo-visita-guiada-benitour-barrio.jpg"]
   }
 };
