@@ -12,8 +12,6 @@ const ugcItems = [
   { src: "/videos/5.MP4", poster: "/videos/posters/poster-05.jpg" }
 ];
 
-const AUTO_ADVANCE_MS = 6500;
-
 const copy = {
   es: {
     titleTop: "Qué Opinan",
@@ -46,7 +44,6 @@ export function BenitourUgc({ language }: LanguageProps) {
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
   const sectionVisibleRef = useRef(false);
   const autoFrameRef = useRef<number | null>(null);
-  const autoStartRef = useRef(0);
   const [active, setActive] = useState(0);
   const [muted, setMuted] = useState(() => ugcItems.map(() => true));
   const [playing, setPlaying] = useState(() => ugcItems.map(() => false));
@@ -166,17 +163,29 @@ export function BenitourUgc({ language }: LanguageProps) {
     if (!video) return;
 
     pauseAll(index);
-    video.muted = true;
     if (video.ended || video.currentTime >= video.duration - 0.2) {
       video.currentTime = 0;
     }
-    setMuted((current) => current.map((value, idx) => (idx === index ? true : value)));
     setProgress((current) => current.map((value, idx) => (idx === index ? 0 : value)));
-    video.play().catch(() => undefined);
+    video.muted = muted[index];
+    video.volume = muted[index] ? 0 : 1;
+    keepPlaying(video);
   }
 
   function syncPlaying(index: number, isPlaying: boolean) {
     setPlaying((current) => current.map((value, idx) => (idx === index ? isPlaying : value)));
+  }
+
+  function keepPlaying(video: HTMLVideoElement) {
+    video.play().catch(() => undefined);
+    requestAnimationFrame(() => {
+      if (!video.paused) return;
+      video.play().catch(() => undefined);
+    });
+    window.setTimeout(() => {
+      if (!video.paused) return;
+      video.play().catch(() => undefined);
+    }, 120);
   }
 
   function stopAutoProgress() {
@@ -187,18 +196,15 @@ export function BenitourUgc({ language }: LanguageProps) {
 
   function startAutoProgress(index: number) {
     stopAutoProgress();
-    autoStartRef.current = performance.now();
     setProgress((current) => current.map((value, idx) => (idx === index ? 0 : value)));
 
-    function tick(now: number) {
-      const elapsed = now - autoStartRef.current;
-      const nextProgress = Math.min((elapsed / AUTO_ADVANCE_MS) * 100, 100);
-      setProgress((current) => current.map((value, idx) => (idx === index ? nextProgress : value)));
+    function tick() {
+      const video = videoRefs.current[index];
+      if (!video) return;
 
-      if (nextProgress >= 100) {
-        goNext(index);
-        return;
-      }
+      const duration = Number.isFinite(video.duration) && video.duration > 0 ? video.duration : 0;
+      const nextProgress = duration ? Math.min((video.currentTime / duration) * 100, 100) : 0;
+      setProgress((current) => current.map((value, idx) => (idx === index ? nextProgress : value)));
 
       autoFrameRef.current = requestAnimationFrame(tick);
     }
@@ -215,7 +221,7 @@ export function BenitourUgc({ language }: LanguageProps) {
     if (video.paused || video.ended) {
       pauseAll(index);
       if (video.ended) video.currentTime = 0;
-      video.play().catch(() => undefined);
+      keepPlaying(video);
       startAutoProgress(index);
     } else {
       video.pause();
@@ -226,13 +232,16 @@ export function BenitourUgc({ language }: LanguageProps) {
     const video = videoRefs.current[index];
     if (!video) return;
 
-    video.muted = !video.muted;
-    setMuted((current) => current.map((value, idx) => (idx === index ? video.muted : value)));
-    setToastHidden((current) => current.map((value, idx) => (idx === index ? !video.muted : value)));
-
-    if (!video.paused) return;
+    const nextMuted = !video.muted;
     pauseAll(index);
-    video.play().catch(() => undefined);
+    video.muted = nextMuted;
+    video.volume = nextMuted ? 0 : 1;
+    setMuted(() => ugcItems.map(() => nextMuted));
+    setToastHidden(() => ugcItems.map(() => !nextMuted));
+
+    if (video.ended) video.currentTime = 0;
+    keepPlaying(video);
+    startAutoProgress(index);
   }
 
   function goTo(index: number) {
@@ -303,7 +312,22 @@ export function BenitourUgc({ language }: LanguageProps) {
                   </svg>
                 </div>
 
-                <div className={`bnt-ugc__sound-toast${toastHidden[index] ? " is-hidden" : ""}`} aria-hidden="true">
+                <button
+                  className={`bnt-ugc__sound-toast${toastHidden[index] ? " is-hidden" : ""}`}
+                  type="button"
+                  aria-label={t.unmute}
+                  onPointerDown={(event) => {
+                    event.stopPropagation();
+                  }}
+                  onTouchStart={(event) => {
+                    event.stopPropagation();
+                  }}
+                  onClick={(event) => {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    if (muted[index]) toggleSound(index);
+                  }}
+                >
                   <div className="bnt-ugc__toast-mic">
                     <svg viewBox="0 0 24 24">
                       <rect x="9" y="2" width="6" height="11" rx="3" />
@@ -314,13 +338,20 @@ export function BenitourUgc({ language }: LanguageProps) {
                   </div>
                   <span className="bnt-ugc__toast-label">{t.soundOn}</span>
                   <span className="bnt-ugc__toast-dot" />
-                </div>
+                </button>
 
                 <button
                   className={`bnt-ugc__sound-btn${muted[index] ? "" : " unmuted"}`}
                   type="button"
                   aria-label={muted[index] ? t.unmute : t.mute}
+                  onPointerDown={(event) => {
+                    event.stopPropagation();
+                  }}
+                  onTouchStart={(event) => {
+                    event.stopPropagation();
+                  }}
                   onClick={(event) => {
+                    event.preventDefault();
                     event.stopPropagation();
                     toggleSound(index);
                   }}

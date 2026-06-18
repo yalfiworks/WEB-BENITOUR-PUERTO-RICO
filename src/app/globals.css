@@ -1037,13 +1037,16 @@ body {
   align-items: center;
   gap: 8px;
   padding: clamp(7px, 0.6vw, 10px) clamp(13px, 1.1vw, 18px) clamp(7px, 0.6vw, 10px) clamp(10px, 0.85vw, 14px);
-  pointer-events: none;
+  cursor: pointer;
   white-space: nowrap;
   background: rgb(10 10 10 / 82%);
   border: 1px solid var(--ugc-yellow);
   border-radius: 100px;
+  color: inherit;
+  font: inherit;
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
+  touch-action: manipulation;
   transform: translateX(-50%);
   animation: bnt-toast-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s forwards, bnt-toast-breathe 2.6s ease-in-out 1.5s infinite;
 }
