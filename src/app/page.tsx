@@ -2,6 +2,7 @@
 
 import { BenitourCierre } from "@/components/BenitourCierre";
 import { BenitourAssetWarmup } from "@/components/BenitourAssetWarmup";
+import { BenitourCookieBanner } from "@/components/BenitourCookieBanner";
 import { BenitourHero } from "@/components/BenitourHero";
 import { BenitourFaq } from "@/components/BenitourFaq";
 import { BenitourGuias } from "@/components/BenitourGuias";
@@ -29,6 +30,7 @@ export default function Home() {
       <BenitourFaq language={language} />
       <BenitourCierre language={language} />
       <BenitourLegalHub language={language} />
+      <BenitourCookieBanner language={language} />
       <BenitourAssetWarmup />
     </main>
   );
