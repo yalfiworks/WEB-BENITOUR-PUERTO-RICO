@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import type { LanguageProps } from "@/lib/language";
 import { BokunButton } from "./BokunButton";
 
+const AUTO_ADVANCE_MS = 5200;
+
 const paradas = {
   es: [
     {
@@ -128,8 +130,12 @@ export function BenitourParadas({ language }: LanguageProps) {
   const currentParadas = paradas[language];
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
+  const sectionVisibleRef = useRef(false);
+  const autoFrameRef = useRef<number | null>(null);
+  const autoStartRef = useRef(0);
   const [entered, setEntered] = useState(false);
   const [active, setActive] = useState(0);
+  const [progress, setProgress] = useState(0);
   const [modalIndex, setModalIndex] = useState<number | null>(null);
 
   useEffect(() => {
@@ -141,16 +147,42 @@ export function BenitourParadas({ language }: LanguageProps) {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (!entry.isIntersecting) return;
-        setEntered(true);
-        observer.disconnect();
+        sectionVisibleRef.current = entry.isIntersecting;
+
+        if (entry.isIntersecting) {
+          setEntered(true);
+          startAutoProgress(active);
+          return;
+        }
+
+        stopAutoProgress();
       },
       { threshold: 0.08 }
     );
 
     observer.observe(section);
     return () => observer.disconnect();
-  }, []);
+  }, [active]);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    setActive(0);
+    setProgress(0);
+    requestAnimationFrame(() => {
+      track.scrollTo({ left: 0, behavior: "auto" });
+    });
+  }, [language]);
+
+  useEffect(() => {
+    if (!sectionVisibleRef.current || modalIndex !== null) return;
+    startAutoProgress(active);
+
+    return () => {
+      stopAutoProgress();
+    };
+  }, [active, modalIndex]);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -162,7 +194,10 @@ export function BenitourParadas({ language }: LanguageProps) {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           const index = cards.indexOf(entry.target as HTMLElement);
-          if (index > -1) setActive(index);
+          if (index > -1) {
+            setActive(index);
+            setProgress(0);
+          }
         });
       },
       { root: track, threshold: 0.58 }
@@ -174,6 +209,9 @@ export function BenitourParadas({ language }: LanguageProps) {
 
   useEffect(() => {
     document.body.style.overflow = modalIndex === null ? "" : "hidden";
+    if (modalIndex !== null) {
+      stopAutoProgress();
+    }
     return () => {
       document.body.style.overflow = "";
     };
@@ -222,12 +260,41 @@ export function BenitourParadas({ language }: LanguageProps) {
   function goTo(index: number) {
     const track = trackRef.current;
     const cards = track?.querySelectorAll<HTMLElement>(".bnt-parada-card");
-    const card = cards?.[Math.max(0, Math.min(currentParadas.length - 1, index))];
+    const safeIndex = (index + currentParadas.length) % currentParadas.length;
+    const card = cards?.[safeIndex];
     if (!track || !card) return;
 
     const trackRect = track.getBoundingClientRect();
     const cardRect = card.getBoundingClientRect();
     track.scrollTo({ left: track.scrollLeft + cardRect.left - trackRect.left, behavior: "smooth" });
+    setActive(safeIndex);
+    setProgress(0);
+  }
+
+  function stopAutoProgress() {
+    if (autoFrameRef.current === null) return;
+    cancelAnimationFrame(autoFrameRef.current);
+    autoFrameRef.current = null;
+  }
+
+  function startAutoProgress(index: number) {
+    stopAutoProgress();
+    autoStartRef.current = performance.now();
+    setProgress(0);
+
+    function tick(now: number) {
+      const nextProgress = Math.min(((now - autoStartRef.current) / AUTO_ADVANCE_MS) * 100, 100);
+      setProgress(nextProgress);
+
+      if (nextProgress >= 100) {
+        goTo(index + 1);
+        return;
+      }
+
+      autoFrameRef.current = requestAnimationFrame(tick);
+    }
+
+    autoFrameRef.current = requestAnimationFrame(tick);
   }
 
   const modal = modalIndex === null ? null : currentParadas[modalIndex];
@@ -263,6 +330,7 @@ export function BenitourParadas({ language }: LanguageProps) {
           {currentParadas.map((parada, index) => (
             <article
               className="bnt-parada-card"
+              data-active={index === active ? "true" : "false"}
               role="listitem"
               key={parada.title}
               tabIndex={0}
@@ -282,7 +350,8 @@ export function BenitourParadas({ language }: LanguageProps) {
                   src={parada.image}
                   alt={parada.title}
                   fill
-                  sizes="(min-width: 1200px) 340px, (min-width: 768px) 36vw, 74vw"
+                  quality={95}
+                  sizes="(min-width: 1200px) 430px, (min-width: 768px) 44vw, 88vw"
                 />
                 <div className="bnt-parada-card__overlay" aria-hidden="true" />
               </div>
@@ -296,7 +365,11 @@ export function BenitourParadas({ language }: LanguageProps) {
                 <h3>{parada.displayTitle}</h3>
                 <p>{parada.hook}</p>
               </div>
-              <span className="bnt-parada-card__bar" aria-hidden="true" />
+              <span
+                className="bnt-parada-card__bar"
+                aria-hidden="true"
+                style={{ transform: index === active ? `scaleX(${progress / 100})` : undefined }}
+              />
             </article>
           ))}
         </div>
