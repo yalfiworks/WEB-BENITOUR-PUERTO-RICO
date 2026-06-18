@@ -30,6 +30,22 @@ const copy = {
   }
 };
 
+function ArrowRightIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+      <path d="M3 10H17M17 10L11 4M17 10L11 16" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
+function ArrowDownIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
+      <path d="M10 3V17M10 17L4 11M10 17L16 11" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  );
+}
+
 export function BenitourHero({
   language,
   onLanguageChange
@@ -143,7 +159,7 @@ export function BenitourHero({
           <BokunButton id="bokun_header_cta" className="bnt-cta-header" ariaLabel={current.primary}>
             {current.primary}
             <span className="bnt-cta-header__arr" aria-hidden="true">
-              →
+              <ArrowRightIcon />
             </span>
           </BokunButton>
         </nav>
@@ -200,13 +216,13 @@ export function BenitourHero({
             <BokunButton id="bokun_hero_primary" className="bnt-btn-primary" ariaLabel={current.primary}>
               {current.primary}
               <span className="bnt-btn-primary__icon" aria-hidden="true">
-                →
+                <ArrowRightIcon />
               </span>
             </BokunButton>
             <a href="#benitour-paradas" className="bnt-btn-secondary" data-smooth-scroll onClick={handleSmoothScroll}>
               {current.secondary}
               <span className="bnt-btn-secondary__icon" aria-hidden="true">
-                ↓
+                <ArrowDownIcon />
               </span>
             </a>
           </div>

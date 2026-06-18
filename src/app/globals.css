@@ -270,9 +270,15 @@ body {
 }
 
 .bnt-cta-header__arr {
-  display: inline-block;
-  font-size: 11px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.2s var(--ease-out-back);
+}
+
+.bnt-cta-header__arr svg {
+  width: 13px;
+  height: 13px;
 }
 
 .bnt-cta-header:hover .bnt-cta-header__arr {
@@ -516,10 +522,15 @@ body {
 
 .bnt-btn-primary__icon {
   z-index: 1;
-  display: inline-block;
-  font-size: 15px;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.2s var(--ease-out-back);
+}
+
+.bnt-btn-primary__icon svg {
+  width: 17px;
+  height: 17px;
 }
 
 .bnt-btn-primary:hover .bnt-btn-primary__icon {
@@ -554,11 +565,16 @@ body {
 }
 
 .bnt-btn-secondary__icon {
-  display: inline-block;
-  font-size: 14px;
-  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0.65;
   transition: transform 0.2s var(--ease-out-back), opacity 0.2s;
+}
+
+.bnt-btn-secondary__icon svg {
+  width: 17px;
+  height: 17px;
 }
 
 .bnt-btn-secondary:hover .bnt-btn-secondary__icon {
@@ -889,6 +905,27 @@ body {
   height: 100%;
   object-fit: cover;
   background: #1a1a1a;
+}
+
+.bnt-ugc__brand-mark {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(42px, 3.2vw, 54px);
+  height: clamp(42px, 3.2vw, 54px);
+  margin: clamp(-4px, -0.2vw, 0px) auto 0;
+  background: rgb(13 18 13 / 72%);
+  border: 1.5px solid var(--ugc-yellow);
+  border-radius: 50%;
+  box-shadow: 0 12px 26px rgb(0 0 0 / 26%);
+}
+
+.bnt-ugc__brand-mark img {
+  display: block;
+  width: 72%;
+  height: 72%;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 4px rgb(0 0 0 / 28%));
 }
 
 .bnt-ugc__play-overlay {

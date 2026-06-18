@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { LanguageProps } from "@/lib/language";
 
@@ -10,6 +11,8 @@ const ugcItems = [
   { src: "/videos/4.MP4", poster: "/videos/posters/poster-04.jpg" },
   { src: "/videos/5.MP4", poster: "/videos/posters/poster-05.jpg" }
 ];
+
+const AUTO_ADVANCE_MS = 6500;
 
 const copy = {
   es: {
@@ -41,6 +44,9 @@ export function BenitourUgc({ language }: LanguageProps) {
   const sectionRef = useRef<HTMLElement | null>(null);
   const trackRef = useRef<HTMLDivElement | null>(null);
   const videoRefs = useRef<Array<HTMLVideoElement | null>>([]);
+  const sectionVisibleRef = useRef(false);
+  const autoFrameRef = useRef<number | null>(null);
+  const autoStartRef = useRef(0);
   const [active, setActive] = useState(0);
   const [muted, setMuted] = useState(() => ugcItems.map(() => true));
   const [playing, setPlaying] = useState(() => ugcItems.map(() => false));
@@ -54,18 +60,19 @@ export function BenitourUgc({ language }: LanguageProps) {
 
   useEffect(() => {
     const section = sectionRef.current;
-    const firstVideo = videoRefs.current[0];
-    if (!section || !firstVideo || !("IntersectionObserver" in window)) return;
+    if (!section || !("IntersectionObserver" in window)) return;
 
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reducedMotion) return;
 
     const observer = new IntersectionObserver(
       ([entry]) => {
+        sectionVisibleRef.current = entry.isIntersecting;
         if (entry.isIntersecting) {
-          firstVideo.muted = true;
-          firstVideo.play().catch(() => undefined);
+          playVideo(active);
+          startAutoProgress(active);
         } else {
+          stopAutoProgress();
           pauseAll();
         }
       },
@@ -74,7 +81,17 @@ export function BenitourUgc({ language }: LanguageProps) {
 
     observer.observe(section);
     return () => observer.disconnect();
-  }, []);
+  }, [active]);
+
+  useEffect(() => {
+    if (!sectionVisibleRef.current) return;
+    playVideo(active);
+    startAutoProgress(active);
+
+    return () => {
+      stopAutoProgress();
+    };
+  }, [active]);
 
   useEffect(() => {
     const track = trackRef.current;
@@ -144,18 +161,62 @@ export function BenitourUgc({ language }: LanguageProps) {
     });
   }
 
+  function playVideo(index: number) {
+    const video = videoRefs.current[index];
+    if (!video) return;
+
+    pauseAll(index);
+    video.muted = true;
+    if (video.ended || video.currentTime >= video.duration - 0.2) {
+      video.currentTime = 0;
+    }
+    setMuted((current) => current.map((value, idx) => (idx === index ? true : value)));
+    setProgress((current) => current.map((value, idx) => (idx === index ? 0 : value)));
+    video.play().catch(() => undefined);
+  }
+
   function syncPlaying(index: number, isPlaying: boolean) {
     setPlaying((current) => current.map((value, idx) => (idx === index ? isPlaying : value)));
+  }
+
+  function stopAutoProgress() {
+    if (autoFrameRef.current === null) return;
+    cancelAnimationFrame(autoFrameRef.current);
+    autoFrameRef.current = null;
+  }
+
+  function startAutoProgress(index: number) {
+    stopAutoProgress();
+    autoStartRef.current = performance.now();
+    setProgress((current) => current.map((value, idx) => (idx === index ? 0 : value)));
+
+    function tick(now: number) {
+      const elapsed = now - autoStartRef.current;
+      const nextProgress = Math.min((elapsed / AUTO_ADVANCE_MS) * 100, 100);
+      setProgress((current) => current.map((value, idx) => (idx === index ? nextProgress : value)));
+
+      if (nextProgress >= 100) {
+        goNext(index);
+        return;
+      }
+
+      autoFrameRef.current = requestAnimationFrame(tick);
+    }
+
+    autoFrameRef.current = requestAnimationFrame(tick);
   }
 
   function togglePlay(index: number) {
     const video = videoRefs.current[index];
     if (!video) return;
 
+    stopAutoProgress();
+
     if (video.paused || video.ended) {
       pauseAll(index);
       if (video.ended) video.currentTime = 0;
       video.play().catch(() => undefined);
+      startAutoProgress(index);
     } else {
       video.pause();
     }
@@ -174,19 +235,21 @@ export function BenitourUgc({ language }: LanguageProps) {
     video.play().catch(() => undefined);
   }
 
-  function updateProgress(index: number) {
-    const video = videoRefs.current[index];
-    if (!video || !video.duration) return;
-    setProgress((current) => current.map((value, idx) => (idx === index ? (video.currentTime / video.duration) * 100 : value)));
-  }
-
   function goTo(index: number) {
     const track = trackRef.current;
-    const card = track?.querySelectorAll<HTMLElement>(".bnt-ugc__card")[index];
+    const safeIndex = (index + ugcItems.length) % ugcItems.length;
+    const card = track?.querySelectorAll<HTMLElement>(".bnt-ugc__card")[safeIndex];
     if (!track || !card) return;
     const trackRect = track.getBoundingClientRect();
     const cardRect = card.getBoundingClientRect();
     track.scrollTo({ left: track.scrollLeft + cardRect.left - trackRect.left, behavior: "smooth" });
+  }
+
+  function goNext(fromIndex = active) {
+    const nextIndex = (fromIndex + 1) % ugcItems.length;
+    setProgress((current) => current.map((value, idx) => (idx === fromIndex ? 100 : value)));
+    goTo(nextIndex);
+    setActive(nextIndex);
   }
 
   return (
@@ -225,8 +288,10 @@ export function BenitourUgc({ language }: LanguageProps) {
                   playsInline
                   onPlay={() => syncPlaying(index, true)}
                   onPause={() => syncPlaying(index, false)}
-                  onEnded={() => syncPlaying(index, false)}
-                  onTimeUpdate={() => updateProgress(index)}
+                  onEnded={() => {
+                    syncPlaying(index, false);
+                    goNext(index);
+                  }}
                 >
                   <source src={item.src} type="video/mp4" />
                 </video>
@@ -280,6 +345,9 @@ export function BenitourUgc({ language }: LanguageProps) {
                 </div>
               </div>
 
+              <div className="bnt-ugc__brand-mark" aria-hidden="true">
+                <Image src="/images/benitour-logo.png" alt="" width={400} height={240} />
+              </div>
             </article>
           ))}
         </div>
