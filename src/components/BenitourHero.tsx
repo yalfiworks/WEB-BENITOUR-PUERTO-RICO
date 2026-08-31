@@ -30,6 +30,8 @@ const copy = {
   }
 };
 
+const heroImage = "/images/grupo-visita-guiada-benitour-barrio.jpg?v=20260831";
+
 function ArrowRightIcon() {
   return (
     <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" focusable="false">
@@ -168,9 +170,10 @@ export function BenitourHero({
       <section className="bnt-hero" id="benitour-hero" aria-labelledby="bntHeroTitle" ref={heroRef}>
         <Image
           className="bnt-hero__img"
-          src="/images/grupo-visita-guiada-benitour-barrio.jpg"
-          alt="Grupo de Benitour en el barrio de Bad Bunny en Vega Baja, Puerto Rico"
+          src={heroImage}
+          alt="Grupo de visitantes de Benitour frente al mural de Bad Bunny en Vega Baja, Puerto Rico"
           fill
+          quality={90}
           sizes="100vw"
           priority
         />
