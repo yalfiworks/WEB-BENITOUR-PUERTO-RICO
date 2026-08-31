@@ -90,8 +90,8 @@ export const metadata: Metadata = {
     images: [
       {
         url: "/images/grupo-visita-guiada-benitour-barrio.jpg",
-        width: 1920,
-        height: 1080,
+        width: 6192,
+        height: 4128,
         alt: "Grupo de Benitour frente al mural de Bad Bunny en Vega Baja, Puerto Rico"
       }
     ]
@@ -100,7 +100,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Benitour Puerto Rico | Bad Bunny Tour en Vega Baja, PR",
     description: metaDescription,
-    images: ["/images/grupo-visita-guiada-benitour-barrio.jpg"]
+    images: [
+      {
+        url: "/images/grupo-visita-guiada-benitour-barrio.jpg",
+        alt: "Grupo de Benitour frente al mural de Bad Bunny en Vega Baja, Puerto Rico"
+      }
+    ]
   }
 };
 
@@ -120,19 +125,6 @@ export default function RootLayout({
         <link rel="shortcut icon" href="https://benitourpuertorico.com/favicon.ico" />
         <link rel="apple-touch-icon" href="https://benitourpuertorico.com/apple-touch-icon.png" />
         <link rel="preconnect" href="https://widgets.bokun.io" />
-        <link rel="preload" as="image" href="/images/grupo-visita-guiada-benitour-barrio.jpg" fetchPriority="high" />
-        <link rel="preload" as="image" href="/images/benitour-logo.png" />
-        <link rel="preload" as="image" href="/videos/posters/poster-01.jpg" />
-        <link rel="preload" as="image" href="/images/paradas/parada-01.webp" fetchPriority="high" />
-        <link rel="preload" as="image" href="/images/paradas/parada-02.webp" />
-        <link rel="preload" as="image" href="/images/paradas/parada-03.webp" />
-        <link rel="preload" as="image" href="/images/paradas/parada-04.webp" />
-        <link rel="preload" as="image" href="/images/paradas/parada-05.webp" />
-        <link rel="preload" as="image" href="/images/guias/guias-hero.webp" fetchPriority="high" />
-        <link rel="preload" as="image" href="/images/guias/guia-edwin.webp" fetchPriority="high" />
-        <link rel="preload" as="image" href="/images/guias/guia-karla.webp" fetchPriority="high" />
-        <link rel="preload" as="image" href="/images/cierre/cierre-desktop.jpg" />
-        <link rel="preload" as="image" href="/images/cierre/cierre-mobile.jpg" />
       </head>
       <body>
         {children}
