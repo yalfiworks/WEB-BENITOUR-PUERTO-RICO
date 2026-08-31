@@ -107,7 +107,7 @@ const copy = {
     swipe: "Swipe para explorar",
     dots: "Indicadores de posición",
     go: "Ir a parada",
-    strip: "5 PARADAS · 3 HORAS · VEGA BAJA, PR",
+    strip: "5 PARADAS · 2 HORAS · VEGA BAJA, PR",
     cta: "Reservar tu Tour",
     dialog: "Detalle de parada",
     close: "Cerrar"
@@ -124,7 +124,7 @@ const copy = {
     swipe: "Swipe to explore",
     dots: "Position indicators",
     go: "Go to stop",
-    strip: "5 STOPS · 3 HOURS · VEGA BAJA, PR",
+    strip: "5 STOPS · 2 HOURS · VEGA BAJA, PR",
     cta: "Book Your Tour",
     dialog: "Stop details",
     close: "Close"
