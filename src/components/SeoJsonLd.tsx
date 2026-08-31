@@ -19,7 +19,10 @@ const jsonLd = {
       url: "https://benitourpuertorico.com/",
       image: [
         "https://benitourpuertorico.com/images/grupo-visita-guiada-benitour-barrio.jpg",
+        "https://benitourpuertorico.com/images/paradas/parada-01.webp",
+        "https://benitourpuertorico.com/images/paradas/parada-02.webp",
         "https://benitourpuertorico.com/images/paradas/parada-03.webp",
+        "https://benitourpuertorico.com/images/paradas/parada-04.webp",
         "https://benitourpuertorico.com/images/guias/guias-hero.webp"
       ],
       touristType: ["Fans de Bad Bunny", "Visitantes de Puerto Rico", "Turismo cultural"],

@@ -117,7 +117,6 @@ export function BenitourGuias({ language }: LanguageProps) {
             src="/images/guias/guias-hero.webp"
             alt={t.imageAlt}
             fill
-            priority
             quality={90}
             sizes="(min-width: 1040px) 1040px, 100vw"
           />
@@ -142,7 +141,6 @@ export function BenitourGuias({ language }: LanguageProps) {
                   src={guide.image}
                   alt={guide.name}
                   fill
-                  priority
                   quality={90}
                   sizes="(min-width: 1100px) 420px, (min-width: 600px) 340px, 90vw"
                 />
