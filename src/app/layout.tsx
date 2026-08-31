@@ -32,7 +32,7 @@ const permanentMarker = Permanent_Marker({
 });
 
 const metaDescription =
-  "Recorre el barrio donde creció Bad Bunny. 5 paradas auténticas, 3 horas, guías locales de Vega Baja. Grupos de 6 personas. Desde $139. Reserva tu plaza hoy.";
+  "Recorre el barrio donde creció Bad Bunny. 5 paradas auténticas, 2 horas, guías locales de Vega Baja. Grupos de 6 personas. Desde $139. Reserva tu plaza hoy.";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://benitourpuertorico.com"),

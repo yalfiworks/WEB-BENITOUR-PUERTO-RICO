@@ -14,7 +14,7 @@ const copy = {
     heroTag: "BENITOUR · VEGA BAJA, PR",
     heroTitle: "Conoce a tu",
     heroAccent: "Equipo",
-    cta: "Grupo de 6 personas · 3 horas · Vega Baja, PR",
+    cta: "Grupo de 6 personas · 2 horas · Vega Baja, PR",
     guides: [
       {
         number: "01",
@@ -41,7 +41,7 @@ const copy = {
     heroTag: "BENITOUR · VEGA BAJA, PR",
     heroTitle: "Meet your",
     heroAccent: "Team",
-    cta: "Groups of 6 people · 3 hours · Vega Baja, PR",
+    cta: "Groups of 6 people · 2 hours · Vega Baja, PR",
     guides: [
       {
         number: "01",

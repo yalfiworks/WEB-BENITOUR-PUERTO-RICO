@@ -57,7 +57,7 @@ export function BenitourHero({
 }) {
   const [headerScrolled, setHeaderScrolled] = useState(false);
   const [statsVisible, setStatsVisible] = useState(false);
-  const [stats, setStats] = useState({ hours: 3, stops: 5, people: 6 });
+  const [stats, setStats] = useState({ hours: 2, stops: 5, people: 6 });
   const heroRef = useRef<HTMLElement | null>(null);
   const statsRef = useRef<HTMLDivElement | null>(null);
 
@@ -232,7 +232,7 @@ export function BenitourHero({
 
           <div
             className="bnt-hero__stats"
-            aria-label="3 H, 5 paradas, 6 turistas por grupo"
+            aria-label="2 H, 5 paradas, 6 turistas por grupo"
             ref={statsRef}
           >
             <div className={`bnt-stat${statsVisible ? " is-visible" : ""}`} style={{ transitionDelay: "0ms" }}>
@@ -276,7 +276,7 @@ function animateStats(setStats: React.Dispatch<React.SetStateAction<{ hours: num
     const eased = easeOutExpo(progress);
 
     setStats({
-      hours: Math.round(eased * 3),
+      hours: Math.round(eased * 2),
       stops: Math.round(eased * 5),
       people: Math.round(eased * 6)
     });
@@ -284,7 +284,7 @@ function animateStats(setStats: React.Dispatch<React.SetStateAction<{ hours: num
     if (progress < 1) {
       requestAnimationFrame(step);
     } else {
-      setStats({ hours: 3, stops: 5, people: 6 });
+      setStats({ hours: 2, stops: 5, people: 6 });
     }
   }
 

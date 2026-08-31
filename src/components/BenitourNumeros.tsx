@@ -5,14 +5,14 @@ import type { LanguageProps } from "@/lib/language";
 
 const kpis = {
   es: [
-    { order: "01", badge: "HRS", value: "3", countTarget: 3, label: "Duración", subtext: "Experiencia completa", background: "3", ariaLabel: "Duración: 3 horas" },
+    { order: "01", badge: "HRS", value: "2", countTarget: 2, label: "Duración", subtext: "Experiencia completa", background: "2", ariaLabel: "Duración: 2 horas" },
     { order: "02", badge: "PARADAS", value: "5", countTarget: 5, label: "Localizaciones", subtext: "Todas en Vega Baja", background: "5", ariaLabel: "Paradas: 5" },
     { order: "03", badge: "IDIOMAS", value: "ES\nEN", label: "Disponible en", subtext: "Español · English", background: "", ariaLabel: "Idiomas: Español e Inglés", kind: "langs" },
     { order: "04", badge: "USD", value: "$139", label: "Desde · por persona", subtext: "Precio todo incluido", background: "$", ariaLabel: "Precio: desde $139 por persona", kind: "price" },
     { order: "05", badge: "GRUPO", value: "6", countTarget: 6, label: "Personas por grupo", subtext: "Experiencia íntima", background: "6", ariaLabel: "Grupo de 6 personas" }
   ],
   en: [
-    { order: "01", badge: "HRS", value: "3", countTarget: 3, label: "Duration", subtext: "Complete experience", background: "3", ariaLabel: "Duration: 3 hours" },
+    { order: "01", badge: "HRS", value: "2", countTarget: 2, label: "Duration", subtext: "Complete experience", background: "2", ariaLabel: "Duration: 2 hours" },
     { order: "02", badge: "STOPS", value: "5", countTarget: 5, label: "Locations", subtext: "All in Vega Baja", background: "5", ariaLabel: "Stops: 5" },
     { order: "03", badge: "LANG", value: "ES\nEN", label: "Available in", subtext: "Spanish · English", background: "", ariaLabel: "Languages: Spanish and English", kind: "langs" },
     { order: "04", badge: "USD", value: "$139", label: "From · per person", subtext: "All-included price", background: "$", ariaLabel: "Price: from $139 per person", kind: "price" },

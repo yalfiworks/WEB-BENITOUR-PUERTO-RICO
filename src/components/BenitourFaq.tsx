@@ -25,7 +25,7 @@ const copy: Record<"es" | "en", {
     other: "¿Otra duda?",
     otherBody: <>¿No encuentras lo que buscas? Escríbenos a <a href="mailto:info@benitourpuertorico.com">info@benitourpuertorico.com</a> y te respondemos en menos de 24 horas.</>,
     faqs: [
-      { question: "¿Cuánto dura el tour?", answer: <>Aproximadamente <strong>3 horas</strong>, incluyendo las 5 paradas y los desplazamientos entre ellas.</> },
+      { question: "¿Cuánto dura el tour?", answer: <>Aproximadamente <strong>2 horas</strong>, incluyendo las 5 paradas y los desplazamientos entre ellas.</> },
       { question: "¿Dónde es el punto de encuentro?", answer: <>En el <strong>centro de Vega Baja</strong>. Recibirás las instrucciones exactas al confirmar tu reserva.</> },
       { question: "¿Cómo llego sin coche?", answer: <>Hay <strong>parking gratuito</strong> en el punto de encuentro. De momento <strong>no ofrecemos servicio de transporte</strong> hasta el punto de salida. Si vienes desde San Juan también coordinamos opciones de transporte compartido.</> },
       { question: "¿Y si llueve?", answer: <>El tour se realiza en casi cualquier condición. Solo suspendemos por <strong>alerta de tormenta severa</strong>. En ese caso ofrecemos reprogramación o reembolso completo.</> },
@@ -44,7 +44,7 @@ const copy: Record<"es" | "en", {
     other: "Another question?",
     otherBody: <>Can’t find what you need? Email us at <a href="mailto:info@benitourpuertorico.com">info@benitourpuertorico.com</a> and we will reply in less than 24 hours.</>,
     faqs: [
-      { question: "How long does the tour last?", answer: <>About <strong>3 hours</strong>, including the 5 stops and the transfers between them.</> },
+      { question: "How long does the tour last?", answer: <>About <strong>2 hours</strong>, including the 5 stops and the transfers between them.</> },
       { question: "Where is the meeting point?", answer: <>In <strong>central Vega Baja</strong>. You will receive the exact instructions after your booking is confirmed.</> },
       { question: "How do I get there without a car?", answer: <>There is <strong>free parking</strong> at the meeting point. At the moment we <strong>do not offer transport</strong> to the starting point. If you are coming from San Juan, we can also help coordinate shared transport options.</> },
       { question: "What if it rains?", answer: <>The tour runs in almost all weather conditions. We only cancel for a <strong>severe storm alert</strong>. In that case, we offer rescheduling or a full refund.</> },
