@@ -5717,3 +5717,37 @@ button.bnt-cierre-nav-link.bokunButton {
     flex: 1 1 130px;
   }
 }
+
+/* A landscape phone needs its own composition, not the tablet layout. */
+@media (min-width: 640px) and (max-height: 560px) and (orientation: landscape) {
+  .bnt-hero {
+    min-height: 100svh;
+  }
+
+  .bnt-hero__body {
+    padding: calc(var(--bnt-header-h) + env(safe-area-inset-top) + 8px) 28px 20px;
+  }
+
+  .bnt-hero__kicker,
+  .bnt-hero__title-rule,
+  .bnt-hero__sub,
+  .bnt-hero__stats {
+    display: none;
+  }
+
+  .bnt-hero__title {
+    font-size: clamp(40px, 7vw, 60px);
+  }
+
+  .bnt-hero__ctas {
+    flex-direction: row;
+    margin: 18px 0 0;
+  }
+
+  .bnt-btn-primary,
+  .bnt-btn-secondary {
+    height: 46px;
+    padding: 0 24px;
+    font-size: 14px;
+  }
+}
