@@ -10,28 +10,32 @@ const AUTO_ADVANCE_MS = 5200;
 const paradas = {
   es: [
     {
-      image: "/images/paradas/parada-01.webp",
+      image: "/images/paradas/parada-01.webp?v=20260831",
+      alt: "Visitante de Benitour en el supermercado Econo, uno de los primeros empleos de Bad Bunny",
       title: "Donde Todo Comenzó",
       displayTitle: "DoNdE ToDo CoMeNzÓ",
       hook: "Donde recogía carritos y manejaba caja antes de llenar estadios.",
       description: "Donde recogía carritos y manejaba caja antes de llenar estadios. Una parada clave para entender el origen real de la historia."
     },
     {
-      image: "/images/paradas/parada-02.webp",
+      image: "/images/paradas/parada-02.webp?v=20260831",
+      alt: "Visitante de Benitour junto a la cancha de baloncesto de La Suan en Vega Baja",
       title: "La Suan",
       displayTitle: "La SuAn",
       hook: "La high school del barrio y la panadería que terminó metida en unas lyrics.",
       description: "La high school del barrio y la panadería que terminó metida en unas lyrics."
     },
     {
-      image: "/images/paradas/parada-03.webp",
+      image: "/images/paradas/parada-03.webp?v=20260831",
+      alt: "Visitantes de Benitour frente al mural de Bad Bunny en Vega Baja",
       title: "El Primer Mural",
       displayTitle: "El PrImEr MuRaL",
       hook: "El mural donde todo fan se detiene a tirar la foto obligatoria.",
       description: "El mural donde el tour se vuelve foto, barrio y memoria. Una de las paradas más visuales del recorrido."
     },
     {
-      image: "/images/paradas/parada-04.webp",
+      image: "/images/paradas/parada-04.webp?v=20260831",
+      alt: "Grupo de Benitour frente a la iglesia de Vega Baja, una parada del recorrido",
       title: "¿Benito Monaguillo?",
       displayTitle: "¿BeNiTo MoNaGuIllO?",
       hook: "La iglesia del barrio y una historia que conecta con sus primeros años.",
@@ -39,6 +43,7 @@ const paradas = {
     },
     {
       image: "/images/paradas/parada-05.webp",
+      alt: "La Casita",
       title: "La Casita",
       displayTitle: "La CaSiTa",
       hook: "La casita rosa, el origen íntimo del recorrido y de la historia.",
@@ -47,28 +52,32 @@ const paradas = {
   ],
   en: [
     {
-      image: "/images/paradas/parada-01.webp",
+      image: "/images/paradas/parada-01.webp?v=20260831",
+      alt: "Benitour visitor at the Econo supermarket, one of Bad Bunny's first jobs",
       title: "Where It All Began",
       displayTitle: "WhErE It BeGaN",
       hook: "Where he collected carts and worked registers before filling stadiums.",
       description: "Where he collected carts and worked registers before filling stadiums. A key stop to understand the real origin of the story."
     },
     {
-      image: "/images/paradas/parada-02.webp",
+      image: "/images/paradas/parada-02.webp?v=20260831",
+      alt: "Benitour visitor beside the La Suan basketball court in Vega Baja",
       title: "La Suan",
       displayTitle: "La SuAn",
       hook: "The neighborhood high school and bakery that made their way into the lyrics.",
       description: "The neighborhood high school and bakery that made their way into the lyrics."
     },
     {
-      image: "/images/paradas/parada-03.webp",
+      image: "/images/paradas/parada-03.webp?v=20260831",
+      alt: "Benitour visitors in front of the Bad Bunny mural in Vega Baja",
       title: "The First Mural",
       displayTitle: "FiRsT MuRaL",
       hook: "The mural where every fan stops for the must-have photo.",
       description: "The mural where the tour becomes photo, neighborhood and memory. One of the most visual stops on the route."
     },
     {
-      image: "/images/paradas/parada-04.webp",
+      image: "/images/paradas/parada-04.webp?v=20260831",
+      alt: "Benitour group outside the Vega Baja church, a stop on the tour",
       title: "Benito as an Altar Boy?",
       displayTitle: "BeNiTo AlTaR BoY?",
       hook: "The neighborhood church and a story connected to his early years.",
@@ -76,6 +85,7 @@ const paradas = {
     },
     {
       image: "/images/paradas/parada-05.webp",
+      alt: "The Little House",
       title: "The Little House",
       displayTitle: "LiTtLe HoUsE",
       hook: "The pink little house, the intimate origin of the route and the story.",
@@ -348,7 +358,7 @@ export function BenitourParadas({ language }: LanguageProps) {
                 <Image
                   className="bnt-parada-card__image"
                   src={parada.image}
-                  alt={parada.title}
+                  alt={parada.alt}
                   fill
                   quality={95}
                   sizes="(min-width: 1200px) 430px, (min-width: 768px) 44vw, 88vw"
@@ -393,7 +403,7 @@ export function BenitourParadas({ language }: LanguageProps) {
         ))}
       </nav>
 
-      <div className="bnt-paradas__cta-strip">
+      <div className="bnt-paradas__cta-strip" id="reservar">
         <p>{t.strip}</p>
         <BokunButton id="bokun_paradas_cta" className="bnt-paradas__cta" ariaLabel={t.cta}>
           <span>{t.cta}</span>
@@ -419,8 +429,9 @@ export function BenitourParadas({ language }: LanguageProps) {
               <Image
                 className="bnt-paradas-modal__image"
                 src={modal.image}
-                alt={modal.title}
+                alt={modal.alt}
                 fill
+                quality={95}
                 sizes="(min-width: 768px) 600px, 92vw"
               />
               <div className="bnt-paradas-modal__image-overlay" aria-hidden="true" />
