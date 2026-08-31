@@ -7,11 +7,11 @@ const images = [
   },
   {
     loc: "/images/paradas/parada-01.webp",
-    title: "Donde Todo Comenzo, primera parada del tour de Bad Bunny"
+    title: "Visitante de Benitour en Econo, primera parada del tour de Bad Bunny"
   },
   {
     loc: "/images/paradas/parada-02.webp",
-    title: "La Suan en Vega Baja, parada del tour de Bad Bunny"
+    title: "Cancha de La Suan en Vega Baja, parada del tour de Bad Bunny"
   },
   {
     loc: "/images/paradas/parada-03.webp",
@@ -19,7 +19,7 @@ const images = [
   },
   {
     loc: "/images/paradas/parada-04.webp",
-    title: "Recorrido guiado de Benitour por el barrio de Bad Bunny"
+    title: "Grupo de Benitour frente a la iglesia de Vega Baja"
   },
   {
     loc: "/images/paradas/parada-05.webp",
