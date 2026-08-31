@@ -31,6 +31,8 @@ const copy = {
 };
 
 const heroImage = "/images/grupo-visita-guiada-benitour-barrio.jpg?v=20260831";
+const heroMobileImage = "/images/grupo-visita-guiada-benitour-barrio-mobile.webp?v=20260831-mobile";
+const heroTabletImage = "/images/grupo-visita-guiada-benitour-barrio-tablet.webp?v=20260831-tablet";
 
 function ArrowRightIcon() {
   return (
@@ -168,15 +170,20 @@ export function BenitourHero({
       </header>
 
       <section className="bnt-hero" id="benitour-hero" aria-labelledby="bntHeroTitle" ref={heroRef}>
-        <Image
-          className="bnt-hero__img"
-          src={heroImage}
-          alt="Grupo de visitantes de Benitour frente al mural de Bad Bunny en Vega Baja, Puerto Rico"
-          fill
-          quality={90}
-          sizes="100vw"
-          priority
-        />
+        <picture className="bnt-hero__media">
+          <source media="(max-width: 639px) and (orientation: portrait)" srcSet={heroMobileImage} type="image/webp" />
+          <source media="(min-width: 640px) and (max-width: 1279px) and (orientation: portrait)" srcSet={heroTabletImage} type="image/webp" />
+          <Image
+            className="bnt-hero__img"
+            src={heroImage}
+            alt="Grupo de visitantes de Benitour frente al mural de Bad Bunny en Vega Baja, Puerto Rico"
+            fill
+            quality={90}
+            sizes="100vw"
+            loading="eager"
+            fetchPriority="high"
+          />
+        </picture>
 
         <div className="bnt-hero__overlay" aria-hidden="true" />
         <div className="bnt-hero__accent-bar" aria-hidden="true" />
@@ -190,7 +197,7 @@ export function BenitourHero({
           <h1 className="bnt-hero__title" id="bntHeroTitle">
             <span className="bnt-title-line">
               <span className="bnt-title-line__inner">{current.title[0]}</span>
-            </span>
+            </span>{" "}
             <span className="bnt-title-line">
               <span className="bnt-title-line__inner">
                 {language === "es" ? (
@@ -201,7 +208,7 @@ export function BenitourHero({
                   current.title[1]
                 )}
               </span>
-            </span>
+            </span>{" "}
             <span className="bnt-title-line">
               <span className="bnt-title-line__inner">{current.title[2]}</span>
             </span>

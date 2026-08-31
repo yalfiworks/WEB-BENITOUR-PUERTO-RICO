@@ -295,11 +295,20 @@ body {
   background: var(--bnt-negro);
 }
 
+.bnt-hero__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  overflow: hidden;
+  line-height: 0;
+}
+
 .bnt-hero__img {
   z-index: 0;
   display: block;
-  object-fit: contain;
-  object-position: center top;
+  object-fit: cover;
+  object-position: 58% center;
   background: #111111;
   backface-visibility: hidden;
 }
@@ -311,12 +320,12 @@ body {
   background:
     linear-gradient(
       to bottom,
-      rgb(26 26 26 / 38%) 0%,
-      rgb(26 26 26 / 6%) 20%,
-      rgb(26 26 26 / 62%) 55%,
-      rgb(26 26 26 / 90%) 100%
+      rgb(8 12 10 / 28%) 0%,
+      rgb(8 12 10 / 6%) 24%,
+      rgb(8 12 10 / 34%) 62%,
+      rgb(8 12 10 / 66%) 100%
     ),
-    linear-gradient(110deg, rgb(26 26 26 / 52%) 0%, transparent 60%);
+    linear-gradient(104deg, rgb(8 12 10 / 68%) 0%, rgb(8 12 10 / 40%) 38%, rgb(8 12 10 / 12%) 62%, transparent 78%);
 }
 
 .bnt-hero__accent-bar {
@@ -1419,10 +1428,45 @@ body {
   }
 }
 
+@media (min-width: 640px) and (max-width: 1279px) and (orientation: portrait) {
+  .bnt-hero__img {
+    object-position: 56% center;
+  }
+
+  .bnt-hero__overlay {
+    background:
+      linear-gradient(
+        to bottom,
+        rgb(8 12 10 / 56%) 0%,
+        rgb(8 12 10 / 14%) 25%,
+        rgb(8 12 10 / 43%) 58%,
+        rgb(8 12 10 / 88%) 100%
+      ),
+      linear-gradient(110deg, rgb(8 12 10 / 34%) 0%, transparent 74%);
+  }
+}
+
 @media (max-width: 639px) {
   .bnt-hero__img {
     animation: none;
-    object-position: center top;
+    object-position: 57% center;
+  }
+
+  .bnt-hero__overlay {
+    background:
+      linear-gradient(
+        to bottom,
+        rgb(8 12 10 / 68%) 0%,
+        rgb(8 12 10 / 20%) 24%,
+        rgb(8 12 10 / 34%) 52%,
+        rgb(8 12 10 / 78%) 80%,
+        rgb(8 12 10 / 94%) 100%
+      ),
+      linear-gradient(110deg, rgb(8 12 10 / 38%) 0%, transparent 74%);
+  }
+
+  .bnt-hero__scroll {
+    display: none;
   }
 
   .bnt-hero__body {
@@ -1487,6 +1531,47 @@ body {
   .bnt-ugc__card {
     flex-basis: min(78vw, 360px);
     gap: 13px;
+  }
+}
+
+@media (max-width: 639px) and (orientation: portrait) {
+  .bnt-hero {
+    min-height: max(100svh, 720px);
+  }
+}
+
+@media (max-height: 560px) and (orientation: landscape) {
+  .bnt-hero {
+    min-height: max(100svh, 510px);
+  }
+
+  .bnt-hero__body {
+    padding: calc(var(--bnt-header-h) + env(safe-area-inset-top) + 12px) 28px 28px;
+  }
+
+  .bnt-hero__kicker {
+    margin-bottom: 9px;
+  }
+
+  .bnt-hero__title {
+    font-size: clamp(42px, 8vw, 62px);
+  }
+
+  .bnt-hero__title-rule {
+    margin: 10px 0 12px;
+  }
+
+  .bnt-hero__sub {
+    margin-bottom: 16px;
+  }
+
+  .bnt-hero__ctas {
+    flex-direction: row;
+    margin-bottom: 18px;
+  }
+
+  .bnt-hero__stats {
+    gap: 12px;
   }
 }
 
