@@ -34,6 +34,18 @@ const permanentMarker = Permanent_Marker({
 const metaDescription =
   "Recorre el barrio donde creció Bad Bunny. 5 paradas auténticas, 2 horas, guías locales de Vega Baja. Grupos de 6 personas. Desde $139. Reserva tu plaza hoy.";
 
+const heroMobilePreloadSrcSet = [
+  "/images/grupo-visita-guiada-benitour-barrio-mobile-real-720.webp?v=20260901-mobile-real-v2 720w",
+  "/images/grupo-visita-guiada-benitour-barrio-mobile-real-1080.webp?v=20260901-mobile-real-v2 1080w",
+  "/images/grupo-visita-guiada-benitour-barrio-mobile-real.webp?v=20260901-mobile-real-v2 1440w"
+].join(", ");
+
+const heroTabletPreloadSrcSet = [
+  "/images/grupo-visita-guiada-benitour-barrio-tablet-real-1024.webp?v=20260901-tablet-real 1024w",
+  "/images/grupo-visita-guiada-benitour-barrio-tablet-real-1536.webp?v=20260901-tablet-real 1536w",
+  "/images/grupo-visita-guiada-benitour-barrio-tablet-real.webp?v=20260901-tablet-real 2048w"
+].join(", ");
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://benitourpuertorico.com"),
   applicationName: "Benitour Puerto Rico",
@@ -124,6 +136,24 @@ export default function RootLayout({
         <link rel="icon" href="https://benitourpuertorico.com/favicon-48.png" type="image/png" sizes="48x48" />
         <link rel="shortcut icon" href="https://benitourpuertorico.com/favicon.ico" />
         <link rel="apple-touch-icon" href="https://benitourpuertorico.com/apple-touch-icon.png" />
+        <link
+          rel="preload"
+          as="image"
+          imageSrcSet={heroMobilePreloadSrcSet}
+          imageSizes="100vw"
+          media="(max-width: 639px) and (orientation: portrait)"
+          type="image/webp"
+          fetchPriority="high"
+        />
+        <link
+          rel="preload"
+          as="image"
+          imageSrcSet={heroTabletPreloadSrcSet}
+          imageSizes="100vw"
+          media="(min-width: 640px) and (max-width: 1279px) and (orientation: portrait)"
+          type="image/webp"
+          fetchPriority="high"
+        />
         <link rel="preconnect" href="https://widgets.bokun.io" />
       </head>
       <body>
