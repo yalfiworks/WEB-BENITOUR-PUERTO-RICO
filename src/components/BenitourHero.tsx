@@ -31,8 +31,12 @@ const copy = {
 };
 
 const heroImage = "/images/grupo-visita-guiada-benitour-barrio.jpg?v=20260831";
-const heroMobileImage = "/images/grupo-visita-guiada-benitour-barrio-mobile.webp?v=20260831-mobile";
-const heroTabletImage = "/images/grupo-visita-guiada-benitour-barrio-tablet.webp?v=20260831-tablet";
+const heroMobileImage = "/images/grupo-visita-guiada-benitour-barrio-mobile-real.webp?v=20260901-mobile-real-v2";
+const heroMobileImageSmall = "/images/grupo-visita-guiada-benitour-barrio-mobile-real-720.webp?v=20260901-mobile-real-v2";
+const heroMobileImageMedium = "/images/grupo-visita-guiada-benitour-barrio-mobile-real-1080.webp?v=20260901-mobile-real-v2";
+const heroTabletImage = "/images/grupo-visita-guiada-benitour-barrio-tablet-real.webp?v=20260901-tablet-real";
+const heroTabletImageMedium = "/images/grupo-visita-guiada-benitour-barrio-tablet-real-1024.webp?v=20260901-tablet-real";
+const heroTabletImageLarge = "/images/grupo-visita-guiada-benitour-barrio-tablet-real-1536.webp?v=20260901-tablet-real";
 
 function ArrowRightIcon() {
   return (
@@ -171,8 +175,18 @@ export function BenitourHero({
 
       <section className="bnt-hero" id="benitour-hero" aria-labelledby="bntHeroTitle" ref={heroRef}>
         <picture className="bnt-hero__media">
-          <source media="(max-width: 639px) and (orientation: portrait)" srcSet={heroMobileImage} type="image/webp" />
-          <source media="(min-width: 640px) and (max-width: 1279px) and (orientation: portrait)" srcSet={heroTabletImage} type="image/webp" />
+          <source
+            media="(max-width: 639px) and (orientation: portrait)"
+            srcSet={`${heroMobileImageSmall} 720w, ${heroMobileImageMedium} 1080w, ${heroMobileImage} 1440w`}
+            sizes="100vw"
+            type="image/webp"
+          />
+          <source
+            media="(min-width: 640px) and (max-width: 1279px) and (orientation: portrait)"
+            srcSet={`${heroTabletImageMedium} 1024w, ${heroTabletImageLarge} 1536w, ${heroTabletImage} 2048w`}
+            sizes="100vw"
+            type="image/webp"
+          />
           <Image
             className="bnt-hero__img"
             src={heroImage}
