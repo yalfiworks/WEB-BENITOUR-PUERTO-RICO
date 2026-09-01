@@ -43,6 +43,7 @@ const paradas = {
     },
     {
       image: "/images/paradas/parada-05.webp",
+      mediaClassName: "bnt-parada-media--casita",
       alt: "La Casita",
       title: "La Casita",
       displayTitle: "La CaSiTa",
@@ -85,6 +86,7 @@ const paradas = {
     },
     {
       image: "/images/paradas/parada-05.webp",
+      mediaClassName: "bnt-parada-media--casita",
       alt: "The Little House",
       title: "The Little House",
       displayTitle: "LiTtLe HoUsE",
@@ -356,12 +358,15 @@ export function BenitourParadas({ language }: LanguageProps) {
             >
               <div className="bnt-parada-card__image-wrap">
                 <Image
-                  className="bnt-parada-card__image"
+                  className={`bnt-parada-card__image${parada.mediaClassName ? ` ${parada.mediaClassName}` : ""}`}
                   src={parada.image}
                   alt={parada.alt}
                   fill
                   quality={95}
                   sizes="(min-width: 1200px) 430px, (min-width: 768px) 44vw, 88vw"
+                  loading="eager"
+                  fetchPriority="low"
+                  decoding="async"
                 />
                 <div className="bnt-parada-card__overlay" aria-hidden="true" />
               </div>
@@ -427,7 +432,7 @@ export function BenitourParadas({ language }: LanguageProps) {
             </button>
             <div className="bnt-paradas-modal__image-wrap">
               <Image
-                className="bnt-paradas-modal__image"
+                className={`bnt-paradas-modal__image${modal.mediaClassName ? ` ${modal.mediaClassName}` : ""}`}
                 src={modal.image}
                 alt={modal.alt}
                 fill
