@@ -6,7 +6,7 @@ const images = [
     title: "Bad Bunny Tour en Vega Baja con Benitour Puerto Rico"
   },
   {
-    loc: "/images/grupo-visita-guiada-benitour-barrio-mobile-real.webp",
+    loc: "/images/grupo-visita-guiada-benitour-barrio-mobile-vertical.webp",
     title: "Grupo de Benitour frente al mural de Bad Bunny en Vega Baja, versión móvil"
   },
   {

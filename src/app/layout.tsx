@@ -35,9 +35,9 @@ const metaDescription =
   "Recorre el barrio donde creció Bad Bunny. 5 paradas auténticas, 2 horas, guías locales de Vega Baja. Grupos de 6 personas. Desde $139. Reserva tu plaza hoy.";
 
 const heroMobilePreloadSrcSet = [
-  "/images/grupo-visita-guiada-benitour-barrio-mobile-real-720.webp?v=20260901-mobile-real-v2 720w",
-  "/images/grupo-visita-guiada-benitour-barrio-mobile-real-1080.webp?v=20260901-mobile-real-v2 1080w",
-  "/images/grupo-visita-guiada-benitour-barrio-mobile-real.webp?v=20260901-mobile-real-v2 1440w"
+  "/images/grupo-visita-guiada-benitour-barrio-mobile-vertical-360.avif?v=20260901-mobile-vertical-v1 360w",
+  "/images/grupo-visita-guiada-benitour-barrio-mobile-vertical-540.avif?v=20260901-mobile-vertical-v1 540w",
+  "/images/grupo-visita-guiada-benitour-barrio-mobile-vertical.avif?v=20260901-mobile-vertical-v1 737w"
 ].join(", ");
 
 const heroTabletPreloadSrcSet = [
@@ -142,7 +142,7 @@ export default function RootLayout({
           imageSrcSet={heroMobilePreloadSrcSet}
           imageSizes="100vw"
           media="(max-width: 639px) and (orientation: portrait)"
-          type="image/webp"
+          type="image/avif"
           fetchPriority="high"
         />
         <link

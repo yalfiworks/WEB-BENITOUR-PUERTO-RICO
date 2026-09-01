@@ -31,9 +31,12 @@ const copy = {
 };
 
 const heroImage = "/images/grupo-visita-guiada-benitour-barrio.jpg?v=20260831";
-const heroMobileImage = "/images/grupo-visita-guiada-benitour-barrio-mobile-real.webp?v=20260901-mobile-real-v2";
-const heroMobileImageSmall = "/images/grupo-visita-guiada-benitour-barrio-mobile-real-720.webp?v=20260901-mobile-real-v2";
-const heroMobileImageMedium = "/images/grupo-visita-guiada-benitour-barrio-mobile-real-1080.webp?v=20260901-mobile-real-v2";
+const heroMobileImage = "/images/grupo-visita-guiada-benitour-barrio-mobile-vertical.webp?v=20260901-mobile-vertical-v1";
+const heroMobileImageSmall = "/images/grupo-visita-guiada-benitour-barrio-mobile-vertical-360.webp?v=20260901-mobile-vertical-v1";
+const heroMobileImageMedium = "/images/grupo-visita-guiada-benitour-barrio-mobile-vertical-540.webp?v=20260901-mobile-vertical-v1";
+const heroMobileImageAvif = "/images/grupo-visita-guiada-benitour-barrio-mobile-vertical.avif?v=20260901-mobile-vertical-v1";
+const heroMobileImageSmallAvif = "/images/grupo-visita-guiada-benitour-barrio-mobile-vertical-360.avif?v=20260901-mobile-vertical-v1";
+const heroMobileImageMediumAvif = "/images/grupo-visita-guiada-benitour-barrio-mobile-vertical-540.avif?v=20260901-mobile-vertical-v1";
 const heroTabletImage = "/images/grupo-visita-guiada-benitour-barrio-tablet-real.webp?v=20260901-tablet-real";
 const heroTabletImageMedium = "/images/grupo-visita-guiada-benitour-barrio-tablet-real-1024.webp?v=20260901-tablet-real";
 const heroTabletImageLarge = "/images/grupo-visita-guiada-benitour-barrio-tablet-real-1536.webp?v=20260901-tablet-real";
@@ -177,7 +180,13 @@ export function BenitourHero({
         <picture className="bnt-hero__media">
           <source
             media="(max-width: 639px) and (orientation: portrait)"
-            srcSet={`${heroMobileImageSmall} 720w, ${heroMobileImageMedium} 1080w, ${heroMobileImage} 1440w`}
+            srcSet={`${heroMobileImageSmallAvif} 360w, ${heroMobileImageMediumAvif} 540w, ${heroMobileImageAvif} 737w`}
+            sizes="100vw"
+            type="image/avif"
+          />
+          <source
+            media="(max-width: 639px) and (orientation: portrait)"
+            srcSet={`${heroMobileImageSmall} 360w, ${heroMobileImageMedium} 540w, ${heroMobileImage} 737w`}
             sizes="100vw"
             type="image/webp"
           />

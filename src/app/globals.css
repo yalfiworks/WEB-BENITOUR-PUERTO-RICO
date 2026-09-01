@@ -2113,6 +2113,13 @@ body {
   transition: filter 0.5s ease;
 }
 
+/* La Casita is the only portrait original in this 3:2 carousel. */
+.bnt-parada-card__image.bnt-parada-media--casita,
+.bnt-paradas-modal__image.bnt-parada-media--casita {
+  object-fit: cover;
+  object-position: 50% 73%;
+}
+
 .bnt-parada-card:hover .bnt-parada-card__image {
   filter: saturate(1.12) contrast(1.06);
 }
